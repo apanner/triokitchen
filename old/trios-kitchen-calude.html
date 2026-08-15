@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1F4A34">
+<title>Trio's Kitchen by Moms — Menu</title>
+<meta name="description" content="Homemade dosas, vada, pulav & more. Fresh, made with love.">
+
+<!-- Two fonts only, preconnected for fast load: Caveat for the brush-script wordmark, Fraunces for display weight, Work Sans for body/prices -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fraunces:opsz,wght@9..144,600;9..144,900&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --cream:#FBF1E2;
+    --cream-deep:#F1E3C9;
+    --green:#1F4A34;
+    --green-deep:#123024;
+    --terracotta:#C1602E;
+    --gold:#C7973F;
+    --brown:#3A2415;
+    --paper:#FFFCF5;
+    --line: rgba(58,36,21,0.16);
+    --radius: 18px;
+    --gutter: 20px;
+  }
+
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse at 15% -10%, rgba(199,151,63,0.16), transparent 45%),
+      radial-gradient(ellipse at 90% 0%, rgba(31,74,52,0.10), transparent 40%),
+      var(--cream);
+    color:var(--brown);
+    font-family:'Work Sans', system-ui, sans-serif;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+    padding-bottom:92px; /* room for sticky order bar */
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  /* ---------- decorative leaf swirl (signature element, echoes the stall's own artwork) ---------- */
+  .leafwrap{position:relative; height:0;}
+  .leaf-sway{
+    position:absolute; top:0; opacity:0.55;
+    transform-origin:bottom center;
+    animation:sway 5.5s ease-in-out infinite;
+  }
+  .leaf-sway.l{left:6px; animation-delay:0s;}
+  .leaf-sway.r{right:6px; animation-delay:0.6s; transform:scaleX(-1);}
+  @keyframes sway{
+    0%,100%{transform:rotate(0deg);}
+    50%{transform:rotate(3deg);}
+  }
+  .leaf-sway.r{animation-name:swayR;}
+  @keyframes swayR{
+    0%,100%{transform:scaleX(-1) rotate(0deg);}
+    50%{transform:scaleX(-1) rotate(3deg);}
+  }
+
+  /* ---------- header ---------- */
+  header{
+    position:relative;
+    padding:34px var(--gutter) 22px;
+    text-align:center;
+    overflow:hidden;
+  }
+
+  .hat{
+    width:34px; height:34px; margin:0 auto 6px;
+    color:var(--green);
+    animation:riseIn 0.6s ease both;
+  }
+
+  .wordmark{
+    font-family:'Caveat', cursive;
+    font-weight:700;
+    font-size:clamp(40px, 13vw, 56px);
+    color:var(--terracotta);
+    line-height:0.85;
+    margin:0;
+    animation:riseIn 0.6s ease both 0.05s;
+  }
+
+  .kitchen{
+    font-family:'Fraunces', serif;
+    font-weight:900;
+    font-size:clamp(30px, 9.5vw, 42px);
+    letter-spacing:0.03em;
+    color:var(--green-deep);
+    margin:2px 0 0;
+    animation:riseIn 0.6s ease both 0.12s;
+  }
+
+  .bymoms{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'Caveat', cursive;
+    font-weight:600;
+    font-size:clamp(20px, 6vw, 25px);
+    color:var(--brown);
+    margin-top:2px;
+    animation:riseIn 0.6s ease both 0.18s;
+  }
+  .bymoms svg{width:16px; height:16px; color:var(--terracotta);}
+
+  .tagline{
+    margin:16px auto 0;
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    font-size:11.5px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--green-deep); opacity:0.85;
+    animation:riseIn 0.6s ease both 0.24s;
+  }
+  .tagline .dot{width:3px; height:3px; border-radius:50%; background:var(--gold);}
+  .tagline .spark{color:var(--gold);}
+
+  @keyframes riseIn{
+    from{opacity:0; transform:translateY(8px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  /* steam wisps rising off the tagline — small, slow, low-cost signature motion */
+  .steam{
+    position:relative; height:26px; margin-top:2px;
+  }
+  .wisp{
+    position:absolute; bottom:0; left:50%;
+    width:2px; height:16px;
+    background:linear-gradient(to top, rgba(58,36,21,0.22), transparent);
+    border-radius:2px;
+    animation:rise 3.2s ease-in infinite;
+  }
+  .wisp:nth-child(1){transform:translateX(-14px); animation-delay:0s;}
+  .wisp:nth-child(2){transform:translateX(0px); animation-delay:1.05s;}
+  .wisp:nth-child(3){transform:translateX(14px); animation-delay:2.1s;}
+  @keyframes rise{
+    0%{opacity:0; transform:translate(var(--tx,0),0) scaleY(0.6);}
+    25%{opacity:0.7;}
+    100%{opacity:0; transform:translate(calc(var(--tx,0) + 6px), -22px) scaleY(1.15);}
+  }
+  .wisp:nth-child(1){--tx:-14px;}
+  .wisp:nth-child(2){--tx:0px;}
+  .wisp:nth-child(3){--tx:14px;}
+
+  /* ---------- menu ribbon title ---------- */
+  .ribbon-row{
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    margin:10px var(--gutter) 18px;
+  }
+  .ribbon-row .rule{flex:1; height:1px; background:repeating-linear-gradient(to right, var(--line) 0 5px, transparent 5px 10px); max-width:60px;}
+  .ribbon{
+    background:var(--green);
+    color:var(--cream);
+    font-family:'Fraunces', serif;
+    font-weight:900;
+    letter-spacing:0.12em;
+    font-size:15px;
+    padding:9px 22px;
+    border-radius:100px;
+    box-shadow:0 6px 16px -6px rgba(18,48,36,0.55);
+  }
+
+  /* ---------- menu card ---------- */
+  main{padding:0 var(--gutter);}
+  .card{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+    box-shadow:0 14px 30px -18px rgba(58,36,21,0.35);
+  }
+  .card-head{
+    display:flex; justify-content:space-between; align-items:center;
+    background:var(--green);
+    color:var(--cream);
+    padding:12px 18px;
+    font-size:12px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase;
+  }
+
+  ul.menu{list-style:none; margin:0; padding:6px 6px 10px;}
+
+  .item{
+    display:flex; align-items:baseline; gap:8px;
+    padding:13px 12px;
+    border-radius:12px;
+    -webkit-tap-highlight-color:transparent;
+    transition:background 0.35s ease;
+    opacity:0; transform:translateY(10px);
+    animation:itemIn 0.5s ease forwards;
+  }
+  .item:active{background:rgba(199,151,63,0.16);}
+  @keyframes itemIn{ to{opacity:1; transform:translateY(0);} }
+
+  .spark-ico{
+    flex:0 0 auto; width:13px; height:13px; margin-top:3px;
+    color:var(--terracotta);
+  }
+
+  .item-body{flex:1; min-width:0;}
+  .item-name{
+    font-weight:600; font-size:15.5px; color:var(--brown);
+    display:block;
+  }
+  .item-sub{
+    display:inline-block; margin-top:4px;
+    background:var(--terracotta); color:#fff;
+    font-size:10px; font-weight:700; letter-spacing:0.04em;
+    padding:2px 8px; border-radius:100px;
+    animation:pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{box-shadow:0 0 0 0 rgba(193,96,46,0.35);}
+    50%{box-shadow:0 0 0 5px rgba(193,96,46,0);}
+  }
+
+  .leader{
+    flex:1; min-width:14px;
+    border-bottom:1px dotted var(--line);
+    margin:0 2px 4px;
+    transform:translateY(-4px);
+  }
+
+  .price{
+    flex:0 0 auto;
+    font-family:'Fraunces', serif;
+    font-weight:700; font-size:16.5px;
+    color:var(--green-deep);
+    white-space:nowrap;
+  }
+
+  .divider{height:1px; margin:0 14px; background:var(--line);}
+
+  /* ---------- footer ---------- */
+  footer{
+    text-align:center;
+    padding:26px var(--gutter) 10px;
+    color:var(--brown);
+    opacity:0.7;
+    font-size:12.5px;
+  }
+  footer .sig{font-family:'Caveat', cursive; font-size:19px; color:var(--terracotta); display:block; margin-top:2px;}
+
+  /* ---------- sticky order bar ---------- */
+  .orderbar{
+    position:fixed; left:0; right:0; bottom:0;
+    padding:12px var(--gutter) calc(12px + env(safe-area-inset-bottom));
+    background:linear-gradient(to top, var(--cream) 65%, rgba(251,241,226,0));
+  }
+  .order-btn{
+    display:flex; align-items:center; justify-content:center; gap:9px;
+    width:100%;
+    background:var(--green);
+    color:var(--cream);
+    font-family:'Work Sans', sans-serif;
+    font-weight:700; font-size:15px;
+    padding:14px 18px;
+    border:none; border-radius:100px;
+    text-decoration:none;
+    box-shadow:0 10px 22px -8px rgba(18,48,36,0.55);
+    transition:transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .order-btn:active{transform:scale(0.97); box-shadow:0 6px 14px -8px rgba(18,48,36,0.55);}
+  .order-btn svg{width:18px; height:18px;}
+
+  @media (min-width:520px){
+    body{max-width:480px; margin:0 auto; box-shadow:0 0 60px rgba(58,36,21,0.08);}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="leafwrap">
+    <svg class="leaf-sway l" width="46" height="70" viewBox="0 0 46 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4 66C2 44 6 20 24 4" stroke="#1F4A34" stroke-width="2" stroke-linecap="round"/>
+      <ellipse cx="12" cy="18" rx="7" ry="3.4" transform="rotate(-40 12 18)" fill="#1F4A34"/>
+      <ellipse cx="8" cy="32" rx="7" ry="3.4" transform="rotate(-25 8 32)" fill="#1F4A34"/>
+      <ellipse cx="7" cy="47" rx="7" ry="3.4" transform="rotate(-12 7 47)" fill="#1F4A34"/>
+      <ellipse cx="9" cy="60" rx="6" ry="3" transform="rotate(-2 9 60)" fill="#1F4A34"/>
+    </svg>
+    <svg class="leaf-sway r" width="46" height="70" viewBox="0 0 46 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4 66C2 44 6 20 24 4" stroke="#1F4A34" stroke-width="2" stroke-linecap="round"/>
+      <ellipse cx="12" cy="18" rx="7" ry="3.4" transform="rotate(-40 12 18)" fill="#1F4A34"/>
+      <ellipse cx="8" cy="32" rx="7" ry="3.4" transform="rotate(-25 8 32)" fill="#1F4A34"/>
+      <ellipse cx="7" cy="47" rx="7" ry="3.4" transform="rotate(-12 7 47)" fill="#1F4A34"/>
+      <ellipse cx="9" cy="60" rx="6" ry="3" transform="rotate(-2 9 60)" fill="#1F4A34"/>
+    </svg>
+  </div>
+
+  <svg class="hat" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M24 4c-6 0-10 4.5-10 10 0 1.4.3 2.7.8 3.9C11 19.4 8 23.4 8 28h32c0-4.6-3-8.6-6.8-10.1.5-1.2.8-2.5.8-3.9 0-5.5-4-10-10-10Z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/>
+    <path d="M8 28h32v4a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2v-4Z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/>
+  </svg>
+
+  <p class="wordmark">Trio's</p>
+  <p class="kitchen">KITCHEN</p>
+  <p class="bymoms">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.35-9.5-8.5C.7 8.9 2.6 5 6.3 5c2 0 3.6 1.1 4.4 2.7C11.5 6.1 13.1 5 15.1 5c3.7 0 5.6 3.9 3.8 7.5C20.2 16.65 12 21 12 21Z" fill="currentColor"/></svg>
+    by Moms
+  </p>
+
+  <div class="tagline">
+    <span class="spark">✦</span> HOMEMADE <span class="dot"></span> FRESH <span class="dot"></span> MADE WITH LOVE <span class="spark">✦</span>
+  </div>
+  <div class="steam" aria-hidden="true">
+    <span class="wisp"></span><span class="wisp"></span><span class="wisp"></span>
+  </div>
+</header>
+
+<div class="ribbon-row">
+  <span class="rule"></span>
+  <span class="ribbon">MENU</span>
+  <span class="rule"></span>
+</div>
+
+<main>
+  <div class="card">
+    <div class="card-head">
+      <span>Menu Item</span>
+      <span>Price</span>
+    </div>
+
+    <ul class="menu" id="menuList">
+      <!-- items are rendered by JS below for staggered entrance + easy editing -->
+    </ul>
+  </div>
+</main>
+
+<footer>
+  Thank you for supporting a family-run stall
+  <span class="sig">— The Trio's Kitchen family</span>
+</footer>
+
+<div class="orderbar">
+  <!-- Replace the phone number below (digits only, with country code) to point this at your WhatsApp -->
+  <a class="order-btn" href="https://wa.me/6512345678?text=Hi%20Trio%27s%20Kitchen%2C%20I%27d%20like%20to%20order%3A" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.5 0-9.96 4.46-9.96 9.96 0 1.76.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.5 0 9.96-4.46 9.96-9.96S17.54 2 12.04 2Zm5.83 14.24c-.25.7-1.24 1.28-2.02 1.44-.54.12-1.24.21-3.6-.77-3.02-1.25-4.96-4.32-5.11-4.52-.15-.2-1.23-1.64-1.23-3.13s.77-2.22 1.05-2.52c.25-.27.55-.34.73-.34h.53c.17 0 .4-.03.62.48.25.6.85 2.08.92 2.23.07.15.12.33.02.53-.1.2-.15.32-.3.5-.15.18-.31.4-.44.53-.15.15-.3.31-.13.6.17.3.75 1.24 1.62 2.01 1.12.99 2.06 1.3 2.36 1.45.3.15.47.13.65-.08.18-.2.75-.87.95-1.17.2-.3.4-.25.67-.15.27.1 1.73.82 2.02.97.3.15.5.23.57.35.07.13.07.75-.18 1.45Z"/></svg>
+    Order on WhatsApp
+  </a>
+</div>
+
+<script>
+  // Menu content lives here, not scattered in markup — one place to edit prices/items
+  var items = [
+    { name: "Plain Dosa", price: "$5.00" },
+    { name: "Ghee Podi Dosa", price: "$8.00" },
+    { name: "Onion Dosa", price: "$7.00" },
+    { name: "Mysore Masala Dosa", price: "$8.00" },
+    { name: "Cheese Dosa", price: "$7.00" },
+    { name: "Masala Vada (3)", price: "$5.00", sub: "3 FOR $5.00" },
+    { name: "Veg Pulav", price: "$8.00" },
+    { name: "Buttermilk", price: "$1.00" },
+    { name: "Fruit Custard", price: "$3.00" }
+  ];
+
+  var sparkSVG = '<svg class="spark-ico" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2z"/></svg>';
+
+  var list = document.getElementById('menuList');
+  var html = '';
+  items.forEach(function(item, i){
+    html += '<li class="item" style="animation-delay:' + (i * 0.045) + 's">' +
+              sparkSVG +
+              '<div class="item-body">' +
+                '<span class="item-name">' + item.name + '</span>' +
+                (item.sub ? '<span class="item-sub">' + item.sub + '</span>' : '') +
+              '</div>' +
+              '<span class="leader"></span>' +
+              '<span class="price">' + item.price + '</span>' +
+            '</li>';
+    if (i < items.length - 1) html += '<div class="divider"></div>';
+  });
+  list.innerHTML = html;
+</script>
+
+</body>
+</html>

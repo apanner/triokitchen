@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1C3A2A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Trio's Kitchen by Moms — Pay with Interac</title>
+<meta name="description" content="Homemade dosas, vada & pulav. Tap your Canadian bank — our Interac email is copied for you. No typing.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Figtree:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=Yeseva+One&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --leaf:#1C3A2A;
+    --leaf-deep:#12261C;
+    --copper:#B85A2A;
+    --copper-hot:#D46A32;
+    --turmeric:#D4A017;
+    --rice:#F7EFE0;
+    --ticket:#FFF9F0;
+    --ink:#2A1C12;
+    --ink-soft:#6A5344;
+    --line:rgba(42,28,18,.14);
+    --safe-b: env(safe-area-inset-bottom, 0px);
+    --safe-t: env(safe-area-inset-top, 0px);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{-webkit-text-size-adjust:100%;}
+  html,body{height:100%;}
+  body{
+    font-family:'Figtree', system-ui, sans-serif;
+    color:var(--ink);
+    background:var(--leaf-deep);
+    -webkit-font-smoothing:antialiased;
+  }
+  button,a{font-family:inherit; -webkit-tap-highlight-color:transparent;}
+  button{cursor:pointer;}
+
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important;}
+  }
+
+  /* Phone stage */
+  .stage{
+    min-height:100%;
+    max-width:430px;
+    margin:0 auto;
+    background:
+      radial-gradient(120% 60% at 80% -10%, rgba(212,160,23,.22), transparent 50%),
+      radial-gradient(90% 50% at -20% 20%, rgba(184,90,42,.18), transparent 46%),
+      var(--rice);
+    position:relative;
+    overflow-x:hidden;
+    padding-bottom:calc(118px + var(--safe-b));
+  }
+  .stage::before{
+    content:"";
+    pointer-events:none;
+    position:absolute; inset:0;
+    opacity:.045;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  /* Leaf vines */
+  .vine{position:absolute; top:0; width:54px; height:92px; opacity:.55; pointer-events:none;}
+  .vine.l{left:2px; animation:sway 6s ease-in-out infinite;}
+  .vine.r{right:2px; transform:scaleX(-1); animation:swayR 6s ease-in-out infinite .4s;}
+  @keyframes sway{50%{transform:rotate(4deg);}}
+  @keyframes swayR{50%{transform:scaleX(-1) rotate(4deg);}}
+
+  header{
+    position:relative;
+    padding:calc(22px + var(--safe-t)) 20px 8px;
+    text-align:center;
+  }
+  .wordmark{
+    font-family:'Caveat', cursive;
+    font-weight:700;
+    font-size:clamp(56px, 17vw, 72px);
+    line-height:.8;
+    color:var(--copper);
+  }
+  .kitchen{
+    font-family:'Oswald', sans-serif;
+    font-weight:600;
+    font-size:clamp(28px, 8.5vw, 36px);
+    letter-spacing:.22em;
+    color:#1F7A45;
+    margin-top:2px;
+  }
+  .moms{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    margin-top:2px;
+    font-family:'Caveat', cursive;
+    font-size:22px;
+    color:var(--ink);
+  }
+  .moms svg{width:15px; height:15px; color:var(--copper);}
+  .review-btn{
+    display:flex;
+    width:max-content;
+    margin:14px auto 0;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    min-height:40px;
+    padding:8px 14px;
+    border-radius:999px;
+    background:#fff;
+    color:#1f1f1f;
+    text-decoration:none;
+    font-weight:800;
+    font-size:13px;
+    border:1px solid rgba(42,28,18,.14);
+    box-shadow:0 6px 16px -10px rgba(42,28,18,.45);
+  }
+  .review-btn:active{transform:scale(.97);}
+  .review-btn:focus-visible{outline:3px solid var(--turmeric); outline-offset:2px;}
+  .review-g{
+    width:18px; height:18px; display:block; flex-shrink:0;
+  }
+  .review-stars{color:#F4B400; letter-spacing:1px; font-size:12px; line-height:1;}
+  .interac-mark{
+    width:40px; height:40px;
+    border-radius:11px;
+    display:block; flex-shrink:0;
+    object-fit:cover;
+    background:#F7C51A;
+    box-shadow:0 2px 8px rgba(0,0,0,.16);
+  }
+  .interac-mark.sm{width:16px; height:16px; border-radius:4px; box-shadow:none;}
+  .interac-mark.md{width:28px; height:28px; border-radius:8px;}
+  .steam{height:22px; position:relative; margin-top:2px;}
+  .wisp{
+    position:absolute; bottom:0; left:50%; width:2px; height:14px;
+    background:linear-gradient(to top, rgba(42,28,18,.28), transparent);
+    border-radius:2px; animation:wisp 3.1s ease-in infinite;
+  }
+  .wisp:nth-child(1){--x:-12px; animation-delay:0s;}
+  .wisp:nth-child(2){--x:0; animation-delay:1s;}
+  .wisp:nth-child(3){--x:12px; animation-delay:2s;}
+  @keyframes wisp{
+    0%{opacity:0; transform:translate(var(--x),0) scaleY(.6);}
+    30%{opacity:.7;}
+    100%{opacity:0; transform:translate(calc(var(--x) + 5px), -20px) scaleY(1.2);}
+  }
+
+  /* Category filters */
+  .filter-bar{
+    position:sticky; top:0; z-index:25;
+    margin:0 0 8px;
+    padding:2px 12px 8px;
+    background:linear-gradient(to bottom, var(--rice) 70%, rgba(247,239,224,.92));
+    backdrop-filter:blur(10px);
+    display:flex;
+    justify-content:center;
+  }
+  .filters{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:center;
+    gap:5px;
+    width:100%;
+    max-width:100%;
+  }
+  .filter-btn{
+    flex:0 0 auto;
+    border:1px solid var(--line);
+    background:#fff;
+    color:var(--ink-soft);
+    border-radius:999px;
+    padding:3px 9px;
+    min-height:26px;
+    font-weight:650; font-size:11px;
+    letter-spacing:.01em;
+    white-space:nowrap;
+  }
+  .filter-btn:active{transform:scale(.96);}
+  .filter-btn:focus-visible{outline:3px solid var(--turmeric); outline-offset:2px;}
+  .filter-btn.on{
+    background:var(--leaf);
+    border-color:var(--leaf);
+    color:var(--rice);
+  }
+  .filter-btn small{
+    display:inline-block; margin-left:4px;
+    font-size:10px; font-weight:800; opacity:.72;
+  }
+
+  /* Menu ticket */
+  main{padding:0 16px;}
+  .ticket{
+    background:var(--ticket);
+    border-radius:22px;
+    box-shadow:0 18px 40px -22px rgba(42,28,18,.45);
+    overflow:hidden;
+    position:relative;
+  }
+  .ticket::after{
+    content:"";
+    position:absolute; left:18px; right:18px; top:52px;
+    border-top:1px dashed var(--line);
+  }
+  .ticket-head{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:16px 18px 18px;
+    background:var(--leaf);
+    color:var(--rice);
+  }
+  .ticket-head h2{
+    font-family:'Yeseva One', serif;
+    font-size:15px; letter-spacing:.14em;
+  }
+  .ticket-head span{font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; opacity:.75;}
+
+  .menu{list-style:none; padding:8px 8px 10px;}
+  .item{
+    display:grid;
+    grid-template-columns: 1fr auto;
+    gap:8px 10px;
+    padding:12px 10px;
+    border-radius:14px;
+    animation:rise .5s ease both;
+  }
+  .item:nth-child(odd){background:rgba(28,58,42,.035);}
+  .empty-menu{
+    text-align:center; padding:28px 16px 22px;
+    color:var(--ink-soft); font-size:13.5px; font-weight:600;
+  }
+  @keyframes rise{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;}}
+  .item-name{font-weight:700; font-size:15.5px;}
+  .item-desc{font-size:12px; color:var(--ink-soft); margin-top:2px; line-height:1.35;}
+  .deal{
+    display:inline-block; margin-top:5px;
+    background:var(--copper); color:#fff;
+    font-size:10px; font-weight:800; letter-spacing:.04em;
+    padding:2px 8px; border-radius:999px;
+  }
+  .item-side{display:flex; flex-direction:column; align-items:flex-end; gap:6px;}
+  .price{
+    font-family:'Yeseva One', serif;
+    font-size:17px; color:var(--leaf-deep);
+  }
+  .add{
+    min-width:64px; height:32px;
+    border:1.5px solid var(--leaf);
+    background:transparent; color:var(--leaf);
+    border-radius:999px; font-weight:800; font-size:12px;
+  }
+  .add:active{transform:scale(.96); background:rgba(28,58,42,.08);}
+  .stepper{
+    display:none; align-items:center; gap:4px;
+    background:var(--leaf); border-radius:999px; padding:2px;
+  }
+  .stepper.on{display:flex;}
+  .stepper button{
+    width:28px; height:28px; border:0; border-radius:50%;
+    background:var(--turmeric); color:var(--leaf-deep);
+    font-weight:800; font-size:16px; line-height:1;
+  }
+  .stepper .qty{min-width:16px; text-align:center; color:#fff; font-weight:800; font-size:13px;}
+
+  footer{
+    text-align:center; padding:22px 20px 8px;
+    font-size:12.5px; color:var(--ink-soft);
+  }
+  footer .sig{display:block; font-family:'Caveat', cursive; font-size:20px; color:var(--copper); margin-top:2px;}
+
+  /* Dock */
+  .dock{
+    position:fixed; left:0; right:0; bottom:0; z-index:40;
+    padding:10px 16px calc(12px + var(--safe-b));
+    background:linear-gradient(to top, var(--rice) 70%, transparent);
+    max-width:430px; margin:0 auto;
+  }
+  .pay-btn{
+    width:100%; border:0; border-radius:999px;
+    background:linear-gradient(180deg, var(--copper-hot), var(--copper));
+    color:#fff;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:10px;
+    padding:7px 8px 7px 8px;
+    box-shadow:0 12px 28px -10px rgba(184,90,42,.7);
+    min-height:56px;
+  }
+  .pay-btn:active{transform:scale(.985);}
+  .pay-btn:focus-visible{outline:3px solid var(--turmeric); outline-offset:3px;}
+  .pay-copy{text-align:left; flex:1; min-width:0;}
+  .pay-kicker{display:block; font-size:10px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; opacity:.85;}
+  .pay-title{display:block; font-weight:800; font-size:16px;}
+  .pay-go{
+    background:#fff; color:var(--copper);
+    font-weight:800; font-size:13px;
+    padding:12px 16px; border-radius:999px;
+    display:flex; align-items:center; gap:6px;
+  }
+  .pay-amt{font-family:'Yeseva One', serif; font-size:15px; margin-right:2px;}
+
+  /* Sheet */
+  .scrim{
+    position:fixed; inset:0; z-index:80;
+    background:rgba(18,38,28,.62);
+    backdrop-filter:blur(8px);
+    opacity:0; pointer-events:none;
+    transition:opacity .25s ease;
+    display:flex; align-items:flex-end; justify-content:center;
+  }
+  .scrim.open{opacity:1; pointer-events:auto;}
+  .sheet{
+    width:100%; max-width:430px;
+    max-height:min(92vh, 760px);
+    overflow:auto;
+    background:var(--ticket);
+    border-radius:28px 28px 0 0;
+    padding:10px 16px calc(18px + var(--safe-b));
+    transform:translateY(110%);
+    transition:transform .32s cubic-bezier(.2,.8,.2,1);
+  }
+  .scrim.open .sheet{transform:none;}
+  .grab{width:38px; height:4px; border-radius:4px; background:var(--line); margin:4px auto 12px;}
+  .sheet-top{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:12px;}
+  .sheet-brand{display:flex; align-items:center; gap:10px; min-width:0;}
+  .sheet-brand h3{
+    font-family:'Yeseva One', serif; font-size:22px; line-height:1.1;
+  }
+  .sheet-brand p{font-size:12.5px; color:var(--ink-soft); margin-top:4px;}
+  .close-x{
+    width:40px; height:40px; border-radius:50%;
+    border:1px solid var(--line); background:transparent;
+    font-size:20px; color:var(--ink);
+  }
+
+  .lock-card{
+    background:var(--leaf);
+    color:var(--rice);
+    border-radius:18px;
+    padding:14px;
+    position:relative;
+    overflow:hidden;
+  }
+  .lock-card::after{
+    content:"";
+    position:absolute; right:-18px; top:-24px;
+    width:90px; height:90px; border-radius:50%;
+    border:14px solid rgba(212,160,23,.18);
+  }
+  .lock-kicker{
+    font-size:10px; font-weight:800; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--turmeric);
+  }
+  .lock-name{font-family:'Yeseva One', serif; font-size:20px; margin:4px 0 8px;}
+  .lock-mail{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    background:rgba(255,255,255,.08);
+    border:1px dashed rgba(247,239,224,.28);
+    border-radius:12px; padding:8px 10px;
+  }
+  .mail-text{font-size:12.5px; font-weight:700; word-break:break-all;}
+  .copied-pill{
+    flex-shrink:0;
+    background:var(--turmeric); color:var(--leaf-deep);
+    font-size:10px; font-weight:800; letter-spacing:.06em; text-transform:uppercase;
+    padding:6px 8px; border-radius:999px; border:0;
+  }
+  .lock-amt{
+    display:flex; justify-content:space-between; align-items:baseline;
+    margin-top:12px;
+  }
+  .lock-amt small{font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; opacity:.7;}
+  .lock-amt strong{font-family:'Yeseva One', serif; font-size:28px;}
+
+  .steps{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:7px;
+    margin:14px 0;
+  }
+  .step{
+    background:#fff; border:1px solid var(--line); border-radius:14px; padding:10px 8px;
+    text-align:center;
+  }
+  .step b{display:block; font-size:16px; margin-bottom:4px;}
+  .step span{display:block; font-size:11px; font-weight:650; line-height:1.3; color:var(--ink-soft);}
+
+  .bank-label{
+    font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--leaf); margin:4px 0 8px;
+  }
+  .banks{
+    display:grid; grid-template-columns:1fr 1fr; gap:8px;
+  }
+  .bank{
+    display:flex; align-items:center; gap:10px;
+    background:#fff; border:1px solid var(--line);
+    border-radius:16px; padding:10px;
+    text-align:left; color:inherit;
+    min-height:64px;
+  }
+  .bank:active{transform:scale(.97); border-color:var(--copper);}
+  .bank:focus-visible{outline:3px solid var(--turmeric);}
+  .bank-logo{
+    width:40px; height:40px; border-radius:12px;
+    display:grid; place-items:center;
+    font-weight:900; font-size:11px; letter-spacing:.02em; color:#fff; flex-shrink:0;
+  }
+  .bank strong{display:block; font-size:13px;}
+  .bank em{display:block; font-style:normal; font-size:10.5px; color:var(--ink-soft); font-weight:600;}
+
+  .hint{
+    margin-top:12px;
+    font-size:12px; color:var(--ink-soft); line-height:1.45;
+    background:rgba(212,160,23,.12);
+    border-radius:12px; padding:10px 12px;
+  }
+  .sheet-actions{display:flex; gap:8px; margin-top:14px;}
+  .ghost,.solid{
+    flex:1; min-height:48px; border-radius:14px; font-weight:800; font-size:14px;
+  }
+  .ghost{border:1px solid var(--line); background:#fff; color:var(--ink);}
+  .solid{border:0; background:var(--leaf); color:var(--rice);}
+
+  /* Handoff overlay after bank tap */
+  .handoff{
+    position:fixed; inset:0; z-index:120;
+    background:rgba(18,38,28,.78);
+    display:none; align-items:flex-end; justify-content:center;
+  }
+  .handoff.show{display:flex;}
+  .handoff-card{
+    width:100%; max-width:430px;
+    background:var(--ticket);
+    border-radius:24px 24px 0 0;
+    padding:18px 18px calc(20px + var(--safe-b));
+  }
+  .handoff-card h4{font-family:'Yeseva One', serif; font-size:22px; margin:4px 0 8px;}
+  .paste-box{
+    background:var(--leaf); color:#fff; border-radius:14px; padding:12px;
+    font-weight:700; font-size:14px; word-break:break-all;
+  }
+  .paste-box small{display:block; color:var(--turmeric); font-size:10px; letter-spacing:.12em; text-transform:uppercase; margin-bottom:4px;}
+
+  .toast{
+    position:fixed; top:calc(12px + var(--safe-t)); left:50%;
+    transform:translate(-50%,-70px);
+    background:var(--leaf); color:#fff;
+    padding:10px 16px; border-radius:999px;
+    font-size:13px; font-weight:800; z-index:200;
+    opacity:0; pointer-events:none;
+    transition:.28s cubic-bezier(.2,.9,.2,1.2);
+    max-width:90%;
+  }
+  .toast.on{opacity:1; transform:translate(-50%,0);}
+
+  @media (min-width:480px){
+    body{background:#0c1812;}
+    .stage{min-height:100vh; box-shadow:0 0 80px rgba(0,0,0,.35);}
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+  <svg class="vine l" viewBox="0 0 46 70" fill="none" aria-hidden="true">
+    <path d="M4 66C2 44 6 20 24 4" stroke="#1C3A2A" stroke-width="2" stroke-linecap="round"/>
+    <ellipse cx="12" cy="18" rx="7" ry="3.4" transform="rotate(-40 12 18)" fill="#1C3A2A"/>
+    <ellipse cx="8" cy="32" rx="7" ry="3.4" transform="rotate(-25 8 32)" fill="#1C3A2A"/>
+    <ellipse cx="7" cy="47" rx="7" ry="3.4" transform="rotate(-12 7 47)" fill="#1C3A2A"/>
+  </svg>
+  <svg class="vine r" viewBox="0 0 46 70" fill="none" aria-hidden="true">
+    <path d="M4 66C2 44 6 20 24 4" stroke="#1C3A2A" stroke-width="2" stroke-linecap="round"/>
+    <ellipse cx="12" cy="18" rx="7" ry="3.4" transform="rotate(-40 12 18)" fill="#1C3A2A"/>
+    <ellipse cx="8" cy="32" rx="7" ry="3.4" transform="rotate(-25 8 32)" fill="#1C3A2A"/>
+    <ellipse cx="7" cy="47" rx="7" ry="3.4" transform="rotate(-12 7 47)" fill="#1C3A2A"/>
+  </svg>
+
+  <header>
+    <p class="wordmark">Trio's</p>
+    <p class="kitchen">KITCHEN</p>
+    <p class="moms">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7-4.35-9.5-8.5C.7 8.9 2.6 5 6.3 5c2 0 3.6 1.1 4.4 2.7C11.5 6.1 13.1 5 15.1 5c3.7 0 5.6 3.9 3.8 7.5C20.2 16.65 12 21 12 21Z"/></svg>
+      by Moms
+    </p>
+    <a class="review-btn" href="https://g.page/r/CabtycX0_7jxEBI/review" target="_blank" rel="noopener noreferrer" aria-label="Leave a Google review">
+      <svg class="review-g" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.4h6.5c-.3 1.5-1.2 2.8-2.5 3.6v3h4.1c2.4-2.2 3.4-5.4 3.4-8.7z"/>
+        <path fill="#34A853" d="M12 24c3.2 0 5.9-1.1 7.9-2.9l-4.1-3c-1.1.8-2.6 1.3-3.8 1.3-3 0-5.5-2-6.4-4.7H1.4v3.1C3.4 21.4 7.4 24 12 24z"/>
+        <path fill="#FBBC05" d="M5.6 14.7c-.2-.7-.4-1.4-.4-2.2s.1-1.5.4-2.2V7.2H1.4C.5 8.9 0 10.4 0 12.5s.5 3.6 1.4 5.3l4.2-3.1z"/>
+        <path fill="#EA4335" d="M12 4.8c1.8 0 3.3.6 4.6 1.8l3.4-3.4C17.9 1.2 15.2 0 12 0 7.4 0 3.4 2.6 1.4 6.5l4.2 3.1C6.5 6.8 9 4.8 12 4.8z"/>
+      </svg>
+      <span>Google Review</span>
+      <span class="review-stars" aria-hidden="true">★★★★★</span>
+    </a>
+    <div class="steam" aria-hidden="true"><span class="wisp"></span><span class="wisp"></span><span class="wisp"></span></div>
+  </header>
+
+  <nav class="filter-bar" aria-label="Filter menu">
+    <div class="filters" id="filters" role="tablist"></div>
+  </nav>
+
+  <main>
+    <section class="ticket" aria-label="Menu">
+      <div class="ticket-head">
+        <h2>TODAY'S MENU</h2>
+        <span id="menuHint">Tap to add</span>
+      </div>
+      <ul class="menu" id="menu"></ul>
+    </section>
+  </main>
+
+  <footer>
+    Thank you for supporting a family-run stall
+    <span class="sig">— The Trio's Kitchen family</span>
+  </footer>
+</div>
+
+<div class="dock">
+  <button class="pay-btn" id="payBtn" type="button" aria-haspopup="dialog" aria-controls="paySheet">
+    <img class="interac-mark" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Interac_Brand_2021.png/250px-Interac_Brand_2021.png" width="40" height="40" alt="Interac">
+    <span class="pay-copy">
+      <span class="pay-kicker" id="payKicker">Interac e-Transfer</span>
+      <span class="pay-title">Pay from your bank</span>
+    </span>
+    <span class="pay-go">
+      <span class="pay-amt" id="dockAmt">$0</span>
+      Open →
+    </span>
+  </button>
+</div>
+
+<div class="scrim" id="scrim" role="presentation">
+  <div class="sheet" id="paySheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <div class="grab" aria-hidden="true"></div>
+    <div class="sheet-top">
+      <div class="sheet-brand">
+        <img class="interac-mark" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Interac_Brand_2021.png/250px-Interac_Brand_2021.png" width="40" height="40" alt="Interac">
+        <div>
+          <h3 id="sheetTitle">e-Transfer</h3>
+          <p>Pick your bank. We copy our email — you only paste.</p>
+        </div>
+      </div>
+      <button class="close-x" id="closeSheet" type="button" aria-label="Close payment">×</button>
+    </div>
+
+    <div class="lock-card">
+      <div class="lock-kicker">Recipient locked · Autodeposit</div>
+      <div class="lock-name">Trio's Kitchen</div>
+      <div class="lock-mail">
+        <span class="mail-text" id="mailDisplay"></span>
+        <button class="copied-pill" id="copyMail" type="button">Copied</button>
+      </div>
+      <div class="lock-amt">
+        <small>Amount to send</small>
+        <strong id="sheetAmt">$0.00</strong>
+      </div>
+    </div>
+
+    <div class="steps" aria-label="How to pay">
+      <div class="step"><b>1</b><span>Tap your bank. Email copies itself.</span></div>
+      <div class="step"><b>2</b><span>Open Interac e-Transfer → Send.</span></div>
+      <div class="step"><b>3</b><span>Long-press To → Paste. Don't type.</span></div>
+    </div>
+
+    <p class="bank-label">Canadian bank apps</p>
+    <div class="banks" id="banks"></div>
+
+    <p class="hint">
+      Banks never let a website type inside their app — that's by design. We copy
+      <strong>supriyaaprajitha143@gmail.com</strong> to your clipboard, then open the app.
+      Paste once. If Autodeposit is on, there is no security question.
+    </p>
+
+    <div class="sheet-actions">
+      <button class="ghost" id="copyAmt" type="button">Copy amount</button>
+      <button class="solid" id="paidBtn" type="button">I sent it</button>
+    </div>
+  </div>
+</div>
+
+<div class="handoff" id="handoff" role="dialog" aria-labelledby="handoffTitle">
+  <div class="handoff-card">
+    <div class="lock-kicker" id="handoffBank">Opening bank</div>
+    <h4 id="handoffTitle">Paste — don't type</h4>
+    <div class="paste-box">
+      <small>Already on your clipboard</small>
+      <span id="handoffMail"></span>
+    </div>
+    <p class="hint" style="margin-top:10px;">
+      In the bank app: <strong>Move Money → Interac e-Transfer → Send Money</strong>.
+      Tap the To field, then <strong>Paste</strong>. Enter <strong id="handoffAmt">$0.00</strong>.
+    </p>
+    <div class="sheet-actions">
+      <button class="ghost" id="handoffStay" type="button">Stay here</button>
+      <button class="solid" id="handoffOpen" type="button">Open bank app</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function () {
+  const INTERAC_EMAIL = "supriyaaprajitha143@gmail.com";
+  const INTERAC_NAME = "Trio's Kitchen";
+
+  const items = [
+    { id: "plain", name: "Plain Dosa", price: 5, cat: "dosa", desc: "Crispy crepe with coconut chutney & sambar" },
+    { id: "ghee", name: "Ghee Podi Dosa", price: 8, cat: "dosa", desc: "Desi ghee & gunpowder podi" },
+    { id: "onion", name: "Onion Dosa", price: 7, cat: "dosa", desc: "Caramelised onion, chilli & coriander" },
+    { id: "mysore", name: "Mysore Masala Dosa", price: 8, cat: "dosa", desc: "Garlic chutney glaze & spiced potato" },
+    { id: "cheese", name: "Cheese Dosa", price: 7, cat: "dosa", desc: "Melted cheese in a hot crispy dosa" },
+    { id: "vada", name: "Masala Vada (3)", price: 5, cat: "mains", desc: "Chana dal fritters", deal: "3 FOR $5.00" },
+    { id: "pulav", name: "Veg Pulav", price: 8, cat: "mains", desc: "Basmati, whole spices & raita" },
+    { id: "buttermilk", name: "Buttermilk", price: 1, cat: "beverages", desc: "Chilled spiced yogurt drink" },
+    { id: "custard", name: "Fruit Custard", price: 3, cat: "beverages", desc: "Vanilla custard with seasonal fruit" }
+  ];
+
+  const categories = [
+    { id: "all", label: "All Items" },
+    { id: "dosa", label: "Dosas" },
+    { id: "mains", label: "Mains & Snacks" },
+    { id: "beverages", label: "Drinks & Sweets" }
+  ];
+
+  const banks = [
+    { id: "rbc", name: "RBC", sub: "Royal Bank", color: "#003da5", schemes: ["rbcmobile://", "rbc://"], android: "com.rbc.mobile.android", store: "https://apps.apple.com/ca/app/rbc-mobile/id401591398", web: "https://www.rbcroyalbank.com/online-banking/" },
+    { id: "td", name: "TD", sub: "Canada Trust", color: "#008A00", schemes: ["tdct://", "td://"], android: "com.td", store: "https://apps.apple.com/ca/app/td-canada/id283247179", web: "https://easyweb.td.com/" },
+    { id: "scotia", name: "Scotia", sub: "Scotiabank", color: "#EC111A", schemes: ["scotiabank://", "bns://"], android: "com.scotiabank.mobile", store: "https://apps.apple.com/ca/app/scotiabank/id323714478", web: "https://www.scotiabank.com/" },
+    { id: "bmo", name: "BMO", sub: "Bank of Montreal", color: "#0079C1", schemes: ["bmomobile://", "bmo://"], android: "com.bmo.mobile", store: "https://apps.apple.com/ca/app/bmo-mobile-banking/id439887766", web: "https://www.bmo.com/" },
+    { id: "cibc", name: "CIBC", sub: "Mobile Banking", color: "#C41F3E", schemes: ["cibcmobile://", "cibc://"], android: "com.cibc.android.mobi", store: "https://apps.apple.com/ca/app/cibc-mobile-banking/id310216552", web: "https://www.cibc.com/" },
+    { id: "nbc", name: "NBC", sub: "National Bank", color: "#ED1C24", schemes: ["bnc://", "nbc://"], android: "ca.bnc.android", store: "https://apps.apple.com/ca/app/national-bank/id404203598", web: "https://www.nbc.ca/" },
+    { id: "desj", name: "Desjardins", sub: "Mobile services", color: "#00874E", schemes: ["desjardins://"], android: "com.desjardins.mobile", store: "https://apps.apple.com/ca/app/desjardins-mobile-services/id404059585", web: "https://www.desjardins.com/" },
+    { id: "tang", name: "Tangerine", sub: "Go easy", color: "#F37021", schemes: ["tangerine://"], android: "com.tangerine.android", store: "https://apps.apple.com/ca/app/tangerine/id561641623", web: "https://www.tangerine.ca/" },
+    { id: "simplii", name: "Simplii", sub: "Financial", color: "#E4002B", schemes: ["simplii://"], android: "com.simplii.mobile", store: "https://apps.apple.com/ca/app/simplii-financial/id1035647777", web: "https://www.simplii.com/" },
+    { id: "eq", name: "EQ Bank", sub: "Interac send", color: "#5C2D91", schemes: ["eqbank://"], android: "com.eqbank.mobile", store: "https://apps.apple.com/ca/app/eq-bank/id1079618961", web: "https://www.eqbank.ca/" },
+    { id: "ws", name: "Wealthsimple", sub: "Cash", color: "#111111", schemes: ["wealthsimple://"], android: "com.wealthsimple", store: "https://apps.apple.com/ca/app/wealthsimple/id926645831", web: "https://www.wealthsimple.com/" },
+    { id: "koho", name: "KOHO", sub: "Spend account", color: "#4B2EFF", schemes: ["koho://"], android: "com.koho", store: "https://apps.apple.com/ca/app/koho/id1252387545", web: "https://www.koho.ca/" }
+  ];
+
+  const cart = {};
+  let activeCat = "all";
+  let pendingBank = null;
+  let launchTimer = 0;
+
+  const menuEl = document.getElementById("menu");
+  const filtersEl = document.getElementById("filters");
+  const scrim = document.getElementById("scrim");
+  const toastEl = document.getElementById("toast");
+  const handoff = document.getElementById("handoff");
+
+  document.getElementById("mailDisplay").textContent = INTERAC_EMAIL;
+  document.getElementById("handoffMail").textContent = INTERAC_EMAIL;
+
+  function money(n) {
+    return "$" + n.toFixed(2);
+  }
+
+  function totals() {
+    let sum = 0, count = 0;
+    items.forEach(function (it) {
+      const q = cart[it.id] || 0;
+      sum += it.price * q;
+      count += q;
+    });
+    return { sum: sum, count: count };
+  }
+
+  function visibleItems() {
+    if (activeCat === "all") return items.slice();
+    return items.filter(function (it) { return it.cat === activeCat; });
+  }
+
+  function renderFilters() {
+    filtersEl.innerHTML = categories.map(function (cat) {
+      const on = cat.id === activeCat;
+      return (
+        '<button class="filter-btn' + (on ? ' on' : '') + '" type="button" role="tab" aria-selected="' + on + '" data-cat="' + cat.id + '">' +
+          cat.label +
+        '</button>'
+      );
+    }).join("");
+  }
+
+  function renderMenu() {
+    const list = visibleItems();
+    const hint = document.getElementById("menuHint");
+    if (hint) hint.textContent = list.length + (list.length === 1 ? " item" : " items");
+
+    if (!list.length) {
+      menuEl.innerHTML = '<li class="empty-menu">Nothing in this category yet.</li>';
+      return;
+    }
+
+    menuEl.innerHTML = list.map(function (it, i) {
+      const q = cart[it.id] || 0;
+      return (
+        '<li class="item" style="animation-delay:' + (i * 0.04) + 's">' +
+          '<div>' +
+            '<div class="item-name">' + it.name + '</div>' +
+            '<div class="item-desc">' + it.desc + '</div>' +
+            (it.deal ? '<span class="deal">' + it.deal + '</span>' : '') +
+          '</div>' +
+          '<div class="item-side">' +
+            '<div class="price">' + money(it.price) + '</div>' +
+            '<button class="add" type="button" data-add="' + it.id + '" ' + (q ? 'hidden' : '') + '>+ Add</button>' +
+            '<div class="stepper' + (q ? ' on' : '') + '" id="st-' + it.id + '">' +
+              '<button type="button" data-delta="' + it.id + ':-1" aria-label="Remove one">−</button>' +
+              '<span class="qty" id="q-' + it.id + '">' + q + '</span>' +
+              '<button type="button" data-delta="' + it.id + ':1" aria-label="Add one">+</button>' +
+            '</div>' +
+          '</div>' +
+        '</li>'
+      );
+    }).join("");
+  }
+
+  function setQty(id, next) {
+    next = Math.max(0, next);
+    if (next === 0) delete cart[id];
+    else cart[id] = next;
+
+    const addBtn = document.querySelector('[data-add="' + id + '"]');
+    const stepper = document.getElementById("st-" + id);
+    const qtyEl = document.getElementById("q-" + id);
+    if (addBtn) addBtn.hidden = next > 0;
+    if (stepper) stepper.classList.toggle("on", next > 0);
+    if (qtyEl) qtyEl.textContent = String(next);
+    syncTotals();
+  }
+
+  function syncTotals() {
+    const t = totals();
+    const label = t.count ? money(t.sum) : "$0";
+    document.getElementById("dockAmt").textContent = label;
+    document.getElementById("sheetAmt").textContent = t.count ? money(t.sum) : "$0.00";
+    document.getElementById("handoffAmt").textContent = t.count ? money(t.sum) : "your total";
+    document.getElementById("payKicker").textContent = t.count
+      ? t.count + (t.count === 1 ? " item" : " items")
+      : "Interac e-Transfer";
+  }
+
+  function toast(msg) {
+    toastEl.textContent = msg;
+    toastEl.classList.add("on");
+    clearTimeout(toast.t);
+    toast.t = setTimeout(function () { toastEl.classList.remove("on"); }, 2200);
+  }
+
+  function copyEmail() {
+    return copyText(INTERAC_EMAIL).then(function (ok) {
+      document.getElementById("copyMail").textContent = ok ? "Copied" : "Copy";
+      return ok;
+    });
+  }
+
+  function copyText(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text).then(function () { return true; }).catch(function () {
+        return fallbackCopy(text);
+      });
+    }
+    return Promise.resolve(fallbackCopy(text));
+  }
+
+  function fallbackCopy(text) {
+    const el = document.createElement("textarea");
+    el.value = text;
+    el.setAttribute("readonly", "");
+    el.style.position = "fixed";
+    el.style.left = "-9999px";
+    document.body.appendChild(el);
+    el.select();
+    let ok = false;
+    try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+    document.body.removeChild(el);
+    return ok;
+  }
+
+  function openSheet() {
+    copyEmail().then(function (ok) {
+      toast(ok ? "Interac email copied — pick your bank" : "Tap Copied if paste fails");
+    });
+    scrim.classList.add("open");
+    document.getElementById("closeSheet").focus();
+  }
+
+  function closeSheet() {
+    scrim.classList.remove("open");
+  }
+
+  function renderBanks() {
+    document.getElementById("banks").innerHTML = banks.map(function (b) {
+      return (
+        '<button class="bank" type="button" data-bank="' + b.id + '">' +
+          '<span class="bank-logo" style="background:' + b.color + '">' + b.name.slice(0, 4).toUpperCase() + '</span>' +
+          '<span><strong>' + b.name + '</strong><em>' + b.sub + ' · paste email</em></span>' +
+        '</button>'
+      );
+    }).join("");
+  }
+
+  function isAndroid() { return /android/i.test(navigator.userAgent); }
+  function isIOS() { return /iPhone|iPad|iPod/i.test(navigator.userAgent); }
+
+  function showHandoff(bank) {
+    pendingBank = bank;
+    document.getElementById("handoffBank").textContent = "Opening " + bank.name;
+    document.getElementById("handoffTitle").textContent = "Paste into " + bank.name;
+    handoff.classList.add("show");
+  }
+
+  function hideHandoff() {
+    handoff.classList.remove("show");
+  }
+
+  function launchBank(bank) {
+    copyEmail();
+    const started = Date.now();
+
+    if (isAndroid() && bank.android) {
+      const scheme = (bank.schemes[0] || "app://").replace("://", "");
+      window.location.href =
+        "intent://send#Intent;scheme=" + scheme +
+        ";package=" + bank.android +
+        ";S.browser_fallback_url=" + encodeURIComponent(bank.web) +
+        ";end";
+      return;
+    }
+
+    window.location.href = bank.schemes[0];
+
+    clearTimeout(launchTimer);
+    launchTimer = setTimeout(function () {
+      if (document.hidden) return;
+      if (Date.now() - started < 2500) {
+        window.location.href = isIOS() ? bank.store : bank.web;
+      }
+    }, 1400);
+  }
+
+  menuEl.addEventListener("click", function (e) {
+    const add = e.target.closest("[data-add]");
+    if (add) {
+      setQty(add.getAttribute("data-add"), 1);
+      return;
+    }
+    const delta = e.target.closest("[data-delta]");
+    if (!delta) return;
+    const parts = delta.getAttribute("data-delta").split(":");
+    const id = parts[0];
+    const d = parseInt(parts[1], 10);
+    setQty(id, (cart[id] || 0) + d);
+  });
+
+  document.getElementById("payBtn").addEventListener("click", openSheet);
+  document.getElementById("closeSheet").addEventListener("click", closeSheet);
+  scrim.addEventListener("click", function (e) {
+    if (e.target === scrim) closeSheet();
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      hideHandoff();
+      closeSheet();
+    }
+  });
+
+  document.getElementById("copyMail").addEventListener("click", function () {
+    copyEmail().then(function (ok) {
+      toast(ok ? "Email copied — paste in your bank" : "Copy failed — long-press the email");
+    });
+  });
+
+  document.getElementById("copyAmt").addEventListener("click", function () {
+    const t = totals();
+    const val = t.sum > 0 ? t.sum.toFixed(2) : "0.00";
+    copyText(val).then(function (ok) {
+      document.getElementById("copyMail").textContent = "Copy email";
+      toast(ok ? "Amount " + money(t.sum) + " copied — copy the email again before paying" : "Could not copy amount");
+    });
+  });
+
+  document.getElementById("banks").addEventListener("click", function (e) {
+    const btn = e.target.closest("[data-bank]");
+    if (!btn) return;
+    const bank = banks.find(function (b) { return b.id === btn.getAttribute("data-bank"); });
+    if (!bank) return;
+    copyEmail().then(function () {
+      showHandoff(bank);
+    });
+  });
+
+  document.getElementById("handoffStay").addEventListener("click", hideHandoff);
+  document.getElementById("handoffOpen").addEventListener("click", function () {
+    if (pendingBank) launchBank(pendingBank);
+  });
+
+  document.getElementById("paidBtn").addEventListener("click", function () {
+    const t = totals();
+    toast(t.count
+      ? "Noted " + money(t.sum) + " — show the Interac sent screen at the stall"
+      : "Send the Interac, then show us the confirmation");
+    hideHandoff();
+    setTimeout(closeSheet, 900);
+  });
+
+  document.addEventListener("visibilitychange", function () {
+    if (!document.hidden && pendingBank) {
+      toast("Back from " + pendingBank.name + "? Tap I sent it when the transfer went through");
+    }
+  });
+
+  filtersEl.addEventListener("click", function (e) {
+    const btn = e.target.closest("[data-cat]");
+    if (!btn) return;
+    activeCat = btn.getAttribute("data-cat");
+    renderFilters();
+    renderMenu();
+  });
+
+  renderFilters();
+  renderMenu();
+  renderBanks();
+  syncTotals();
+})();
+</script>
+</body>
+</html>

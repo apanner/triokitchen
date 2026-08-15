@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Trio's Kitchen by Moms | Artisanal South Indian Street Food</title>
+  <meta name="description" content="Homemade, fresh, authentic South Indian Dosas, Crispy Vadas, Fragrant Pulav & Drinks. Direct Interac e-Transfer payment." />
+  <meta name="theme-color" content="#090a0f" />
+
+  <!-- Premium Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       DESIGN SYSTEM (Theme 1: Velvet Emerald, Theme 2: Saffron Noir, Theme 3: Cyber Obsidian)
+       ========================================================================== */
+    :root {
+      --bg-canvas: #090a0f;
+      --bg-surface-glass: rgba(18, 22, 34, 0.72);
+      --bg-card: rgba(22, 28, 44, 0.75);
+      --bg-card-hover: rgba(30, 39, 62, 0.9);
+      --bg-subtle: rgba(255, 255, 255, 0.04);
+      --primary: #e6af4b;
+      --primary-light: #f7d692;
+      --primary-gradient: linear-gradient(135deg, #f5c468 0%, #d4952b 100%);
+      --emerald: #10b981;
+      --emerald-glow: rgba(16, 185, 129, 0.25);
+      --border-line: rgba(230, 175, 75, 0.18);
+      --border-bright: rgba(230, 175, 75, 0.5);
+      --text-white: #ffffff;
+      --text-dim: #94a3b8;
+      --text-gold: #f5c468;
+      --font-body: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      --font-heading: 'Playfair Display', Georgia, serif;
+      --app-shadow: 0 20px 40px -10px rgba(0,0,0,0.7);
+    }
+
+    body.theme-saffron {
+      --bg-canvas: #0d0705;
+      --bg-surface-glass: rgba(36, 18, 12, 0.75);
+      --bg-card: rgba(46, 23, 15, 0.75);
+      --bg-card-hover: rgba(64, 32, 21, 0.9);
+      --primary: #f97316;
+      --primary-light: #fdba74;
+      --primary-gradient: linear-gradient(135deg, #fb923c 0%, #ea580c 100%);
+      --border-line: rgba(249, 115, 22, 0.22);
+      --border-bright: rgba(249, 115, 22, 0.6);
+      --text-dim: #a8948c;
+      --text-gold: #fb923c;
+    }
+
+    body.theme-midnight {
+      --bg-canvas: #050608;
+      --bg-surface-glass: rgba(15, 17, 26, 0.85);
+      --bg-card: rgba(21, 24, 38, 0.75);
+      --bg-card-hover: rgba(31, 36, 56, 0.9);
+      --primary: #38bdf8;
+      --primary-light: #bae6fd;
+      --primary-gradient: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+      --border-line: rgba(56, 189, 248, 0.22);
+      --border-bright: rgba(56, 189, 248, 0.6);
+      --text-dim: #94a3b8;
+      --text-gold: #38bdf8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-canvas);
+      color: var(--text-white);
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 10% 10%, rgba(230, 175, 75, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.06) 0%, transparent 50%);
+      background-attachment: fixed;
+      transition: background-color 0.3s ease;
+    }
+
+    /* Outer Wrapper formatted for premium smartphone ratio */
+    .app-viewport {
+      max-width: 440px;
+      margin: 0 auto;
+      padding: 12px 14px 120px 14px;
+      position: relative;
+    }
+
+    /* ==========================================================================
+       HEADER BAR - SLIM, SLEEK & POLISHED
+       ========================================================================== */
+    .app-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: var(--bg-surface-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border-line);
+      border-radius: 20px;
+      margin-bottom: 12px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+    }
+
+    .brand-identity {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-monogram {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: var(--primary-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      color: #000;
+      font-weight: 800;
+    }
+
+    .brand-text-wrap h1 {
+      font-family: var(--font-heading);
+      font-size: 1.22rem;
+      font-weight: 700;
+      color: var(--text-white);
+      line-height: 1.1;
+      letter-spacing: 0.2px;
+    }
+
+    .brand-text-wrap p {
+      font-size: 0.65rem;
+      color: var(--text-gold);
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+    }
+
+    .header-quick-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .theme-toggle-pill {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-line);
+      color: var(--text-dim);
+      padding: 6px 10px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s;
+    }
+
+    .theme-toggle-pill:active {
+      transform: scale(0.94);
+      color: var(--primary);
+    }
+
+    .interac-top-btn {
+      background: var(--primary-gradient);
+      color: #000;
+      font-weight: 800;
+      font-size: 0.75rem;
+      border: none;
+      padding: 7px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      box-shadow: 0 4px 14px rgba(230, 175, 75, 0.3);
+      transition: transform 0.15s;
+    }
+
+    .interac-top-btn:active {
+      transform: scale(0.94);
+    }
+
+    /* ==========================================================================
+       HERO EDITORIAL SHOWCASE (Dynamic Split Card)
+       ========================================================================== */
+    .hero-editorial {
+      position: relative;
+      height: 170px;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid var(--border-line);
+      box-shadow: var(--app-shadow);
+      margin-bottom: 14px;
+      background: #000;
+    }
+
+    .editorial-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .editorial-slide.active {
+      opacity: 1;
+    }
+
+    .editorial-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.85);
+      transform: scale(1.03);
+      transition: transform 6s ease;
+    }
+
+    .editorial-slide.active img {
+      transform: scale(1);
+    }
+
+    .editorial-gradient-scrim {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(9,10,15,0.1) 0%, rgba(9,10,15,0.4) 40%, rgba(9,10,15,0.95) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 14px;
+    }
+
+    .hero-live-tag {
+      position: absolute;
+      top: 10px;
+      left: 12px;
+      background: rgba(9,10,15,0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: #34d399;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 8px #10b981;
+      animation: pulse 1.6s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
+    }
+
+    .editorial-scrim-title {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .editorial-scrim-desc {
+      font-size: 0.72rem;
+      color: var(--text-gold);
+      margin-top: 1px;
+    }
+
+    .hero-nav-dots {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      display: flex;
+      gap: 4px;
+    }
+
+    .h-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.4);
+      transition: all 0.3s;
+    }
+
+    .h-dot.active {
+      width: 18px;
+      border-radius: 10px;
+      background: var(--primary);
+    }
+
+    /* ==========================================================================
+       CATEGORY FILTER PILLS (Sticky)
+       ========================================================================== */
+    .sticky-filter-bar {
+      position: sticky;
+      top: 6px;
+      z-index: 20;
+      padding: 4px 0;
+      margin-bottom: 12px;
+      background: rgba(9, 10, 15, 0.85);
+      backdrop-filter: blur(14px);
+    }
+
+    .filter-track {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding: 2px 0;
+    }
+    .filter-track::-webkit-scrollbar { display: none; }
+
+    .cat-btn {
+      background: var(--bg-surface-glass);
+      color: var(--text-dim);
+      border: 1px solid var(--border-line);
+      padding: 7px 14px;
+      border-radius: 24px;
+      font-family: var(--font-body);
+      font-size: 0.76rem;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .cat-btn.active {
+      background: var(--primary-gradient);
+      color: #000;
+      font-weight: 800;
+      border-color: var(--primary-light);
+      box-shadow: 0 4px 12px rgba(230, 175, 75, 0.25);
+    }
+
+    /* ==========================================================================
+       MENU ITEMS CARDS - CLEAN MODERN FOOD CARD
+       ========================================================================== */
+    .menu-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .dish-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-line);
+      border-radius: 20px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+      cursor: pointer;
+    }
+
+    .dish-card:active {
+      transform: scale(0.985);
+      border-color: var(--border-bright);
+      background: var(--bg-card-hover);
+    }
+
+    .dish-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .dish-thumb {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.45rem;
+      position: relative;
+      flex-shrink: 0;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.4);
+    }
+
+    .dish-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 13px;
+    }
+
+    .veg-sym {
+      position: absolute;
+      bottom: -3px;
+      right: -3px;
+      width: 13px;
+      height: 13px;
+      background: var(--bg-canvas);
+      border: 1.2px solid var(--emerald);
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .veg-sym::after {
+      content: '';
+      width: 5px;
+      height: 5px;
+      background: var(--emerald);
+      border-radius: 50%;
+    }
+
+    .dish-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .dish-name {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text-white);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      letter-spacing: 0.1px;
+    }
+
+    .dish-desc {
+      font-size: 0.73rem;
+      color: var(--text-dim);
+      margin-top: 2px;
+      line-height: 1.25;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .dish-deal {
+      display: inline-block;
+      margin-top: 3px;
+      background: rgba(230, 175, 75, 0.12);
+      border: 1px solid var(--border-line);
+      color: var(--text-gold);
+      font-size: 0.63rem;
+      font-weight: 700;
+      padding: 1px 7px;
+      border-radius: 6px;
+    }
+
+    .dish-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 5px;
+      flex-shrink: 0;
+    }
+
+    .dish-price {
+      font-family: var(--font-body);
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--text-gold);
+      letter-spacing: -0.3px;
+    }
+
+    .btn-add {
+      background: var(--bg-subtle);
+      color: var(--primary);
+      border: 1px solid var(--border-bright);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .btn-add:active {
+      transform: scale(0.92);
+      background: var(--primary);
+      color: #000;
+    }
+
+    .dish-stepper {
+      display: none;
+      align-items: center;
+      background: rgba(9, 10, 15, 0.95);
+      border: 1.2px solid var(--primary);
+      border-radius: 20px;
+      padding: 2px;
+      gap: 8px;
+    }
+
+    .dish-stepper.active {
+      display: flex;
+      animation: popIn 0.18s ease-out;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.7); }
+      100% { transform: scale(1); }
+    }
+
+    .step-btn {
+      width: 22px;
+      height: 22px;
+      background: var(--primary-gradient);
+      color: #000;
+      border: none;
+      border-radius: 50%;
+      font-weight: 800;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .step-count {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: #fff;
+      min-width: 12px;
+      text-align: center;
+    }
+
+    /* ==========================================================================
+       STICKY FLOATING TRAY / ORDER BAR
+       ========================================================================== */
+    .dock-wrapper {
+      position: fixed;
+      bottom: 14px;
+      left: 0;
+      width: 100%;
+      padding: 0 14px;
+      z-index: 60;
+      pointer-events: none;
+    }
+
+    .floating-tray {
+      max-width: 440px;
+      margin: 0 auto;
+      background: var(--bg-surface-glass);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1.5px solid var(--primary);
+      border-radius: 22px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.7), 0 0 18px rgba(230, 175, 75, 0.25);
+      pointer-events: auto;
+      transform: translateY(140%);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.25);
+    }
+
+    .floating-tray.visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .tray-meta {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .tray-qty {
+      font-size: 0.7rem;
+      color: var(--text-gold);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .tray-price {
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1.1;
+    }
+
+    .btn-pay-now {
+      background: var(--primary-gradient);
+      color: #000;
+      font-weight: 800;
+      font-size: 0.9rem;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 14px rgba(230, 175, 75, 0.35);
+      transition: transform 0.15s;
+    }
+
+    .btn-pay-now:active {
+      transform: scale(0.95);
+    }
+
+    /* ==========================================================================
+       BOTTOM SHEET (CANADIAN BANKS & INTERAC MODAL)
+       ========================================================================== */
+    .sheet-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.82);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .sheet-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .sheet-modal {
+      background: var(--bg-surface-glass);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border: 1.5px solid var(--primary);
+      border-bottom: none;
+      width: 100%;
+      max-width: 440px;
+      border-top-left-radius: 26px;
+      border-top-right-radius: 26px;
+      padding: 18px 16px 28px 16px;
+      box-shadow: 0 -12px 40px rgba(0,0,0,0.85);
+      transform: translateY(100%);
+      transition: transform 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.15);
+      max-height: 88vh;
+      overflow-y: auto;
+    }
+
+    .sheet-overlay.open .sheet-modal {
+      transform: translateY(0);
+    }
+
+    .sheet-drag-handle {
+      width: 36px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      margin: 0 auto 12px auto;
+    }
+
+    .sheet-title {
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      color: #fff;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .interac-box {
+      background: rgba(9, 10, 15, 0.9);
+      border: 1.2px solid var(--primary);
+      border-radius: 18px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+    }
+
+    .interac-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .interac-heading {
+      font-size: 0.68rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      font-weight: 700;
+    }
+
+    .interac-address {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: #ffffff;
+      word-break: break-all;
+    }
+
+    .btn-copy-chip {
+      background: var(--primary-gradient);
+      color: #000;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 0.75rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .btn-copy-chip:active {
+      transform: scale(0.92);
+    }
+
+    /* Canadian Bank Grid */
+    .bank-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .bank-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-line);
+      padding: 9px 10px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: #ffffff;
+      transition: all 0.2s;
+    }
+
+    .bank-item:active {
+      transform: scale(0.95);
+      border-color: var(--primary);
+      background: var(--bg-card-hover);
+    }
+
+    .bank-brand-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 0.72rem;
+      flex-shrink: 0;
+    }
+
+    .bank-name-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .bank-action-sub {
+      font-size: 0.62rem;
+      color: var(--text-dim);
+    }
+
+    .sheet-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-sheet-cancel {
+      flex: 1;
+      background: var(--bg-subtle);
+      color: #fff;
+      border: 1px solid var(--border-line);
+      padding: 12px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .btn-sheet-confirm {
+      flex: 1.6;
+      background: var(--primary-gradient);
+      color: #000;
+      border: none;
+      padding: 12px;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    /* Toast Notification */
+    .app-toast {
+      position: fixed;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-60px);
+      background: #10b981;
+      color: #ffffff;
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      z-index: 200;
+      opacity: 0;
+      transition: all 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.25);
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .app-toast.visible {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Dynamic Toast -->
+  <div class="app-toast" id="toast">Item Added</div>
+
+  <div class="app-viewport">
+    
+    <!-- 1. SLEEK HEADER (Compact, modern app bar) -->
+    <header class="app-header">
+      <div class="brand-identity">
+        <div class="brand-monogram">🥞</div>
+        <div class="brand-text-wrap">
+          <h1>Trio's Kitchen</h1>
+          <p>by Moms • Homemade</p>
+        </div>
+      </div>
+
+      <div class="header-quick-actions">
+        <!-- 3 Design Switcher -->
+        <button class="theme-toggle-pill" id="theme-btn" title="Toggle Visual Style">
+          🎨 <span id="theme-name">Design 1</span>
+        </button>
+
+        <!-- Direct Interac Payment Access -->
+        <button class="interac-top-btn" id="top-pay-btn">
+          ⚡ Interac
+        </button>
+      </div>
+    </header>
+
+    <!-- 2. GOURMET EDITORIAL CAROUSEL (Real Generated Food Photography) -->
+    <div class="hero-editorial">
+      <div class="hero-live-tag">
+        <span class="pulse-dot"></span> LIVE FOOD STALL
+      </div>
+
+      <div class="hero-nav-dots">
+        <span class="h-dot active" id="dot-0"></span>
+        <span class="h-dot" id="dot-1"></span>
+        <span class="h-dot" id="dot-2"></span>
+      </div>
+
+      <!-- Slide 1: Gourmet Masala Dosa -->
+      <div class="editorial-slide active" id="slide-0">
+        <img src="masala_dosa.jpg" alt="Crispy Mysore Masala Dosa with Sambar and Chutneys" />
+        <div class="editorial-gradient-scrim">
+          <div class="editorial-scrim-title">Crispy Mysore Masala Dosa</div>
+          <div class="editorial-scrim-desc">Roasted in pure desi ghee with spiced potato filling</div>
+        </div>
+      </div>
+
+      <!-- Slide 2: Golden Masala Vada -->
+      <div class="editorial-slide" id="slide-1">
+        <img src="vada.jpg" alt="Crispy Masala Vada" />
+        <div class="editorial-gradient-scrim">
+          <div class="editorial-scrim-title">Crunchy Masala Vada (3)</div>
+          <div class="editorial-scrim-desc">Spiced chana dal fritters • 3 for $5.00</div>
+        </div>
+      </div>
+
+      <!-- Slide 3: Fragrant Veg Pulav & Cooling Custard -->
+      <div class="editorial-slide" id="slide-2">
+        <img src="pulav.jpg" alt="Fragrant Vegetable Pulav" />
+        <div class="editorial-gradient-scrim">
+          <div class="editorial-scrim-title">Fragrant Veg Pulav</div>
+          <div class="editorial-scrim-desc">Steaming basmati rice with whole spices & cool raita</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. STICKY CATEGORY TABS -->
+    <nav class="sticky-filter-bar">
+      <div class="filter-track">
+        <button class="cat-btn active" data-cat="all">🔥 All Items</button>
+        <button class="cat-btn" data-cat="dosa">🥞 Dosas</button>
+        <button class="cat-btn" data-cat="mains">🍛 Mains & Snacks</button>
+        <button class="cat-btn" data-cat="beverages">🥤 Drinks & Sweets</button>
+      </div>
+    </nav>
+
+    <!-- Section Title: Today's Menu -->
+    <div style="display: flex; align-items: center; justify-content: space-between; margin: 4px 2px 10px 2px;">
+      <h2 style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700; color: #ffffff; display: flex; align-items: center; gap: 6px;">
+        <span>🍽️ Today's Menu</span>
+      </h2>
+      <span style="font-size: 0.68rem; font-weight: 700; color: var(--text-gold); background: var(--bg-subtle); border: 1px solid var(--border-line); padding: 3px 8px; border-radius: 12px;" id="item-count-badge">9 ITEMS</span>
+    </div>
+
+    <!-- 4. CLEAN DISHES LIST -->
+    <main class="menu-grid" id="menu-grid"></main>
+
+    <!-- 5. FOOTER -->
+    <footer style="text-align: center; padding: 24px 10px 10px 10px; font-size: 0.74rem; color: var(--text-dim);">
+      <p>Prepared fresh with pure desi ghee & hygienic authentic care.</p>
+      <p style="margin-top: 4px; color: var(--text-gold);">Trio's Kitchen by Moms • Food Stall Menu</p>
+    </footer>
+
+  </div>
+
+  <!-- 6. FLOATING DOCK TRAY -->
+  <div class="dock-wrapper">
+    <div class="floating-tray" id="floating-tray">
+      <div class="tray-meta">
+        <span class="tray-qty" id="tray-qty-label">0 items in tray</span>
+        <span class="tray-price" id="tray-price-label">$0.00</span>
+      </div>
+      <button class="btn-pay-now" id="tray-pay-btn">
+        <span>Pay with Interac</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- 7. INTERAC & CANADIAN BANKS SHEET MODAL -->
+  <div class="sheet-overlay" id="sheet-overlay">
+    <div class="sheet-modal">
+      <div class="sheet-drag-handle"></div>
+      <h3 class="sheet-title">Interac e-Transfer</h3>
+
+      <!-- Copyable Info Card -->
+      <div class="interac-box">
+        <div class="interac-row" style="margin-bottom: 8px;">
+          <div>
+            <div class="interac-heading">Send e-Transfer To:</div>
+            <div class="interac-address" id="interac-email-val">supriyaaprajitha143@gmail.com</div>
+          </div>
+          <button class="btn-copy-chip" id="copy-email-chip">
+            <span>📋 Copy</span>
+          </button>
+        </div>
+
+        <div class="interac-row" style="border-top: 1px dashed var(--border-line); padding-top: 8px;">
+          <div>
+            <div class="interac-heading">Tray Total:</div>
+            <div class="interac-address" style="font-size: 1.3rem; color: var(--text-gold);" id="interac-total-val">$0.00</div>
+          </div>
+          <button class="btn-copy-chip" id="copy-amount-chip" style="background: rgba(255,255,255,0.08); color: var(--text-gold); border: 1px solid var(--border-line);">
+            Copy $
+          </button>
+        </div>
+      </div>
+
+      <!-- Canadian Banks App Grid (Deep Links) -->
+      <div style="font-size: 0.74rem; font-weight: 800; color: var(--text-gold); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px;">
+        Tap Your Bank to Pay:
+      </div>
+
+      <div class="bank-grid">
+        <!-- RBC -->
+        <a href="rbcmobile://" onclick="openBankApp(event, 'rbcmobile://', 'https://www.rbcroyalbank.com')" class="bank-item">
+          <div class="bank-brand-logo" style="background: #003da5; color: #fed100;">RBC</div>
+          <div>
+            <div class="bank-name-label">RBC Mobile</div>
+            <div class="bank-action-sub">Auto-copies email</div>
+          </div>
+        </a>
+
+        <!-- TD -->
+        <a href="tdct://" onclick="openBankApp(event, 'tdct://', 'https://www.td.com')" class="bank-item">
+          <div class="bank-brand-logo" style="background: #008a00; color: #ffffff;">TD</div>
+          <div>
+            <div class="bank-name-label">TD Canada</div>
+            <div class="bank-action-sub">Auto-copies email</div>
+          </div>
+        </a>
+
+        <!-- Scotiabank -->
+        <a href="scotiabank://" onclick="openBankApp(event, 'scotiabank://', 'https://www.scotiabank.com')" class="bank-item">
+          <div class="bank-brand-logo" style="background: #ed1b2d; color: #ffffff;">BNS</div>
+          <div>
+            <div class="bank-name-label">Scotiabank</div>
+            <div class="bank-action-sub">Auto-copies email</div>
+          </div>
+        </a>
+
+        <!-- BMO -->
+        <a href="bmo://" onclick="openBankApp(event, 'bmo://', 'https://www.bmo.com')" class="bank-item">
+          <div class="bank-brand-logo" style="background: #0079c1; color: #ffffff;">BMO</div>
+          <div>
+            <div class="bank-name-label">BMO Mobile</div>
+            <div class="bank-action-sub">Auto-copies email</div>
+          </div>
+        </a>
+
+        <!-- CIBC -->
+        <a href="cibc://" onclick="openBankApp(event, 'cibc://', 'https://www.cibc.com')" class="bank-item">
+          <div class="bank-brand-logo" style="background: #c41230; color: #ffffff;">CIBC</div>
+          <div>
+            <div class="bank-name-label">CIBC Mobile</div>
+            <div class="bank-action-sub">Auto-copies email</div>
+          </div>
+        </a>
+
+        <!-- Tangerine -->
+        <a href="tangerine://" onclick="openBankApp(event, 'tangerine://', 'https://www.tangerine.ca')" class="bank-item">
+          <div class="bank-brand-logo" style="background: #f37021; color: #ffffff;">TANG</div>
+          <div>
+            <div class="bank-name-label">Tangerine</div>
+            <div class="bank-action-sub">Auto-copies email</div>
+          </div>
+        </a>
+
+        <!-- Simplii -->
+        <a href="simplii://" onclick="openBankApp(event, 'simplii://', 'https://www.simplii.com')" class="bank-item">
+          <div class="bank-brand-logo" style="background: #ea0029; color: #ffffff;">SIMP</div>
+          <div>
+            <div class="bank-name-label">Simplii</div>
+            <div class="bank-action-sub">Auto-copies email</div>
+          </div>
+        </a>
+
+        <!-- Desjardins -->
+        <a href="desjardins://" onclick="openBankApp(event, 'desjardins://', 'https://www.desjardins.com')" class="bank-item">
+          <div class="bank-brand-logo" style="background: #00874e; color: #ffffff;">DESJ</div>
+          <div>
+            <div class="bank-name-label">Desjardins</div>
+            <div class="bank-action-sub">Auto-copies email</div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="sheet-actions">
+        <button class="btn-sheet-cancel" id="btn-cancel-modal">Back</button>
+        <button class="btn-sheet-confirm" id="btn-done-paid">I Have Sent Money ✓</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 1. Official Interac Config
+    const INTERAC_EMAIL = "supriyaaprajitha143@gmail.com";
+
+    // 2. Menu Items (All 9 items from Trio's Kitchen menu)
+    const menuData = [
+      {
+        id: 'plain-dosa',
+        name: 'Plain Dosa',
+        price: 5.00,
+        category: 'dosa',
+        icon: '🥞',
+        desc: 'Crispy golden homemade crepe served with coconut chutney & hot sambar'
+      },
+      {
+        id: 'ghee-podi-dosa',
+        name: 'Ghee Podi Dosa',
+        price: 8.00,
+        category: 'dosa',
+        icon: '🧈',
+        desc: 'Smothered in fragrant desi ghee & gunpowder podi spices'
+      },
+      {
+        id: 'onion-dosa',
+        name: 'Onion Dosa',
+        price: 7.00,
+        category: 'dosa',
+        icon: '🧅',
+        desc: 'Topped with caramelised crunchy onions, green chillies & fresh coriander'
+      },
+      {
+        id: 'mysore-masala-dosa',
+        name: 'Mysore Masala Dosa',
+        price: 8.00,
+        category: 'dosa',
+        icon: '🌶️',
+        desc: 'Spicy red garlic chutney glaze with spiced potato masala filling'
+      },
+      {
+        id: 'cheese-dosa',
+        name: 'Cheese Dosa',
+        price: 7.00,
+        category: 'dosa',
+        icon: '🧀',
+        desc: 'Melted creamy cheese inside a hot crispy dosa. Kids favourite!'
+      },
+      {
+        id: 'masala-vada',
+        name: 'Masala Vada (3)',
+        price: 5.00,
+        category: 'mains',
+        icon: '🍘',
+        tag: '3 FOR $5.00',
+        desc: 'Crunchy chana dal fritters with fresh ginger, onions & fennel'
+      },
+      {
+        id: 'veg-pulav',
+        name: 'Veg Pulav',
+        price: 8.00,
+        category: 'mains',
+        icon: '🍛',
+        desc: 'Fragrant long-grain basmati rice with whole spices, veggies & raita'
+      },
+      {
+        id: 'buttermilk',
+        name: 'Buttermilk',
+        price: 1.00,
+        category: 'beverages',
+        icon: '🥛',
+        desc: 'Chilled spiced refreshing yogurt drink with ginger & roasted cumin'
+      },
+      {
+        id: 'fruit-custard',
+        name: 'Fruit Custard',
+        price: 3.00,
+        category: 'beverages',
+        icon: '🍮',
+        desc: 'Creamy velvety vanilla custard filled with fresh seasonal fruits'
+      }
+    ];
+
+    // Cart state
+    let cart = {};
+
+    // 3. Render Menu Items
+    const menuGrid = document.getElementById('menu-grid');
+    const itemCountBadge = document.getElementById('item-count-badge');
+
+    function renderMenu(items) {
+      menuGrid.innerHTML = '';
+      if (itemCountBadge) {
+        itemCountBadge.textContent = `${items.length} ITEM${items.length === 1 ? '' : 'S'}`;
+      }
+      items.forEach((item) => {
+        const qty = cart[item.id] || 0;
+        const card = document.createElement('article');
+        card.className = 'dish-card';
+        card.setAttribute('data-id', item.id);
+
+        card.innerHTML = `
+          <div class="dish-left">
+            <div class="dish-thumb">
+              <span>${item.icon}</span>
+              <div class="veg-sym" title="Pure Veg"></div>
+            </div>
+            <div class="dish-info">
+              <div class="dish-name">${item.name}</div>
+              <div class="dish-desc">${item.desc}</div>
+              ${item.tag ? `<span class="dish-deal">${item.tag}</span>` : ''}
+            </div>
+          </div>
+          <div class="dish-right">
+            <div class="dish-price">$${item.price.toFixed(2)}</div>
+            <button class="btn-add" id="btn-add-${item.id}" style="${qty > 0 ? 'display:none;' : ''}">
+              + Add
+            </button>
+            <div class="dish-stepper ${qty > 0 ? 'active' : ''}" id="stepper-${item.id}">
+              <button class="step-btn" onclick="updateItem('${item.id}', -1, event)">-</button>
+              <span class="step-count" id="count-${item.id}">${qty}</span>
+              <button class="step-btn" onclick="updateItem('${item.id}', 1, event)">+</button>
+            </div>
+          </div>
+        `;
+
+        const addBtn = card.querySelector('.btn-add');
+        if (addBtn) {
+          addBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            updateItem(item.id, 1, e);
+          });
+        }
+
+        menuGrid.appendChild(card);
+      });
+    }
+
+    // 4. Cart Logic
+    function updateItem(id, change, event) {
+      if (event) event.stopPropagation();
+      const current = cart[id] || 0;
+      const next = Math.max(0, current + change);
+
+      if (next === 0) {
+        delete cart[id];
+      } else {
+        cart[id] = next;
+      }
+
+      // Update Card Elements
+      const addBtn = document.getElementById(`btn-add-${id}`);
+      const stepper = document.getElementById(`stepper-${id}`);
+      const count = document.getElementById(`count-${id}`);
+
+      if (addBtn && stepper && count) {
+        if (next > 0) {
+          addBtn.style.display = 'none';
+          stepper.classList.add('active');
+          count.textContent = next;
+        } else {
+          addBtn.style.display = 'block';
+          stepper.classList.remove('active');
+        }
+      }
+
+      if (change > 0) {
+        const item = menuData.find(i => i.id === id);
+        if (item) showToast(`Added ${item.name}`);
+      }
+
+      refreshDock();
+    }
+
+    function getCartSummary() {
+      let sum = 0;
+      let count = 0;
+      for (const [id, qty] of Object.entries(cart)) {
+        const item = menuData.find(i => i.id === id);
+        if (item) {
+          sum += item.price * qty;
+          count += qty;
+        }
+      }
+      return { sum, count };
+    }
+
+    function refreshDock() {
+      const { sum, count } = getCartSummary();
+      const tray = document.getElementById('floating-tray');
+      const qtyLabel = document.getElementById('tray-qty-label');
+      const priceLabel = document.getElementById('tray-price-label');
+      const modalTotal = document.getElementById('interac-total-val');
+
+      if (count > 0) {
+        tray.classList.add('visible');
+        qtyLabel.textContent = `${count} item${count > 1 ? 's' : ''} in tray`;
+        priceLabel.textContent = `$${sum.toFixed(2)}`;
+      } else {
+        tray.classList.remove('visible');
+      }
+
+      modalTotal.textContent = sum > 0 ? `$${sum.toFixed(2)}` : '$0.00';
+    }
+
+    // 5. Modal Operations
+    const overlay = document.getElementById('sheet-overlay');
+    const trayPayBtn = document.getElementById('tray-pay-btn');
+    const topPayBtn = document.getElementById('top-pay-btn');
+    const btnCancelModal = document.getElementById('btn-cancel-modal');
+    const btnDonePaid = document.getElementById('btn-done-paid');
+
+    function openModal() {
+      refreshDock();
+      overlay.classList.add('open');
+    }
+
+    function closeModal() {
+      overlay.classList.remove('open');
+    }
+
+    trayPayBtn.addEventListener('click', openModal);
+    topPayBtn.addEventListener('click', openModal);
+    btnCancelModal.addEventListener('click', closeModal);
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeModal();
+    });
+
+    btnDonePaid.addEventListener('click', () => {
+      showToast('🎉 Thank you! Show confirmation at counter.');
+      setTimeout(closeModal, 1200);
+    });
+
+    // 6. Copy Helper
+    function copyClipboard(text, msg) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => showToast(msg)).catch(() => fallbackCopy(text, msg));
+      } else {
+        fallbackCopy(text, msg);
+      }
+    }
+
+    function fallbackCopy(text, msg) {
+      const el = document.createElement('textarea');
+      el.value = text;
+      el.style.position = 'fixed';
+      el.style.opacity = '0';
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+      showToast(msg);
+    }
+
+    document.getElementById('copy-email-chip').addEventListener('click', () => {
+      copyClipboard(INTERAC_EMAIL, '✓ Interac Email Copied!');
+    });
+
+    document.getElementById('copy-amount-chip').addEventListener('click', () => {
+      const { sum } = getCartSummary();
+      const amountStr = sum > 0 ? sum.toFixed(2) : "0.00";
+      copyClipboard(amountStr, `✓ Amount $${amountStr} Copied!`);
+    });
+
+    // 7. Canadian Bank App Trigger
+    function openBankApp(e, scheme, webUrl) {
+      e.preventDefault();
+      copyClipboard(INTERAC_EMAIL, '✓ Copied Email! Opening Bank...');
+      
+      const start = Date.now();
+      window.location.href = scheme;
+
+      setTimeout(() => {
+        if (Date.now() - start < 1800) {
+          window.open(webUrl, '_blank');
+        }
+      }, 1200);
+    }
+
+    // 8. Toast Feedback
+    let toastTimer;
+    function showToast(text) {
+      const toast = document.getElementById('toast');
+      toast.textContent = text;
+      toast.classList.add('visible');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('visible');
+      }, 1900);
+    }
+
+    // 9. 3-Style Visual Theme Switcher
+    const themes = [
+      { class: '', name: 'Design 1: Luxe' },
+      { class: 'theme-saffron', name: 'Design 2: Saffron' },
+      { class: 'theme-midnight', name: 'Design 3: Cyber' }
+    ];
+    let currentThemeIdx = 0;
+
+    const themeBtn = document.getElementById('theme-btn');
+    const themeName = document.getElementById('theme-name');
+
+    themeBtn.addEventListener('click', () => {
+      document.body.classList.remove(themes[currentThemeIdx].class);
+      currentThemeIdx = (currentThemeIdx + 1) % themes.length;
+      if (themes[currentThemeIdx].class) {
+        document.body.classList.add(themes[currentThemeIdx].class);
+      }
+      themeName.textContent = `Design ${currentThemeIdx + 1}`;
+      showToast(`Switched to ${themes[currentThemeIdx].name}`);
+    });
+
+    // 10. Category Filter Navigation
+    const catBtns = document.querySelectorAll('.cat-btn');
+    catBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        catBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const category = btn.getAttribute('data-cat');
+        if (category === 'all') {
+          renderMenu(menuData);
+        } else {
+          renderMenu(menuData.filter(i => i.category === category));
+        }
+      });
+    });
+
+    // 11. Hero Editorial Auto-Transition
+    let slideIdx = 0;
+    setInterval(() => {
+      const slides = document.querySelectorAll('.editorial-slide');
+      const dots = document.querySelectorAll('.h-dot');
+      slides[slideIdx].classList.remove('active');
+      dots[slideIdx].classList.remove('active');
+      slideIdx = (slideIdx + 1) % slides.length;
+      slides[slideIdx].classList.add('active');
+      dots[slideIdx].classList.add('active');
+    }, 4000);
+
+    // Initial render
+    renderMenu(menuData);
+  </script>
+</body>
+</html>
