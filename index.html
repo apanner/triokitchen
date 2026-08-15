@@ -77,21 +77,30 @@
     padding:calc(22px + var(--safe-t)) 20px 8px;
     text-align:center;
   }
+  .brand-line{
+    display:flex;
+    align-items:baseline;
+    justify-content:center;
+    flex-wrap:nowrap;
+    gap:10px;
+    white-space:nowrap;
+  }
   .wordmark{
     font-family:'Caveat', cursive;
     font-weight:700;
-    font-size:clamp(56px, 17vw, 72px);
-    line-height:.8;
+    font-size:clamp(48px, 14vw, 64px);
+    line-height:.9;
     color:var(--copper);
   }
   .kitchen{
-    font-family:'Oswald', sans-serif;
-    font-weight:600;
-    font-size:clamp(28px, 8.5vw, 36px);
-    letter-spacing:.12em;
-    text-transform:lowercase;
+    font-family:'Caveat', cursive;
+    font-weight:700;
+    font-size:clamp(48px, 14vw, 64px);
+    letter-spacing:0;
+    text-transform:none;
     color:#1F7A45;
-    margin-top:2px;
+    margin:0;
+    line-height:.9;
   }
   .moms{
     display:flex;
@@ -129,6 +138,11 @@
     background:#fff; border-radius:50%; padding:2px;
   }
   .review-go{font-size:16px; font-weight:800; margin-left:2px;}
+  .review-btn.in-sheet{
+    width:100%;
+    margin:12px 0 0;
+    box-sizing:border-box;
+  }
   .interac-mark{
     width:40px; height:40px;
     border-radius:11px;
@@ -248,8 +262,11 @@
   }
   .item-side{display:flex; flex-direction:column; align-items:flex-end; gap:6px;}
   .price{
-    font-family:'Yeseva One', serif;
-    font-size:17px; color:var(--leaf-deep);
+    font-family:'Caveat', cursive;
+    font-weight:700;
+    font-size:26px;
+    line-height:1;
+    color:#1F7A45;
   }
   .add{
     min-width:64px; height:32px;
@@ -304,7 +321,7 @@
     padding:12px 16px; border-radius:999px;
     display:flex; align-items:center; gap:6px;
   }
-  .pay-amt{font-family:'Yeseva One', serif; font-size:15px; margin-right:2px;}
+  .pay-amt{font-family:'Caveat', cursive; font-weight:700; font-size:22px; margin-right:2px;}
 
   /* Sheet */
   .scrim{
@@ -341,12 +358,14 @@
   }
 
   .lock-card{
-    background:var(--leaf);
+    background:linear-gradient(160deg, #1C3A2A 0%, #123024 100%);
     color:var(--rice);
-    border-radius:18px;
-    padding:14px;
+    border-radius:20px;
+    padding:16px;
     position:relative;
     overflow:hidden;
+    border:1.5px solid rgba(212,160,23,.35);
+    box-shadow:0 10px 28px -16px rgba(18,38,28,.65);
   }
   .lock-card::after{
     content:"";
@@ -358,73 +377,70 @@
     font-size:10px; font-weight:800; letter-spacing:.16em; text-transform:uppercase;
     color:var(--turmeric);
   }
-  .lock-name{font-family:'Yeseva One', serif; font-size:20px; margin:4px 0 8px;}
+  .lock-name{font-family:'Caveat', cursive; font-weight:700; font-size:26px; margin:4px 0 12px;}
   .lock-mail{
-    display:flex; align-items:center; justify-content:space-between; gap:10px;
-    background:rgba(255,255,255,.08);
-    border:1px dashed rgba(247,239,224,.28);
-    border-radius:12px; padding:8px 10px;
+    display:flex; flex-direction:column; gap:10px;
+    background:rgba(255,255,255,.1);
+    border:1.5px dashed rgba(247,239,224,.4);
+    border-radius:14px; padding:12px;
+    position:relative; z-index:1;
   }
-  .mail-text{font-size:12.5px; font-weight:700; word-break:break-all;}
+  .mail-label{
+    font-size:10px; font-weight:800; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--turmeric);
+  }
+  .mail-text{
+    font-size:15px; font-weight:800; word-break:break-all;
+    line-height:1.35; color:#fff;
+  }
   .copied-pill{
-    flex-shrink:0;
+    width:100%;
     background:var(--turmeric); color:var(--leaf-deep);
-    font-size:10px; font-weight:800; letter-spacing:.06em; text-transform:uppercase;
-    padding:6px 8px; border-radius:999px; border:0;
+    font-size:13px; font-weight:800; letter-spacing:.04em;
+    padding:12px 10px; border-radius:12px; border:0;
   }
+  .copied-pill:active{transform:scale(.98);}
   .lock-amt{
     display:flex; justify-content:space-between; align-items:baseline;
-    margin-top:12px;
+    margin-top:14px; position:relative; z-index:1;
   }
   .lock-amt small{font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; opacity:.7;}
-  .lock-amt strong{font-family:'Yeseva One', serif; font-size:28px;}
-
-  .steps{
-    display:grid; grid-template-columns:repeat(3,1fr); gap:7px;
-    margin:14px 0;
-  }
-  .step{
-    background:#fff; border:1px solid var(--line); border-radius:14px; padding:10px 8px;
-    text-align:center;
-  }
-  .step b{display:block; font-size:16px; margin-bottom:4px;}
-  .step span{display:block; font-size:11px; font-weight:650; line-height:1.3; color:var(--ink-soft);}
+  .lock-amt strong{font-family:'Caveat', cursive; font-weight:700; font-size:32px;}
 
   .bank-label{
     font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase;
-    color:var(--leaf); margin:4px 0 8px;
+    color:var(--leaf); margin:16px 0 10px; text-align:center;
   }
   .banks{
-    display:grid; grid-template-columns:1fr 1fr; gap:8px;
-  }
-  .bank:last-child:nth-child(odd){
-    grid-column:1 / -1;
-    max-width:calc(50% - 4px);
-    justify-self:center;
-    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
   }
   .bank{
-    display:flex; align-items:center; gap:10px;
-    background:#fff; border:1px solid var(--line);
-    border-radius:16px; padding:10px;
-    text-align:left; color:inherit;
-    min-height:64px;
+    width:58px; height:58px;
+    padding:0;
+    border:2px solid var(--line);
+    border-radius:16px;
+    background:#fff;
+    display:grid; place-items:center;
   }
-  .bank:active{transform:scale(.97); border-color:var(--copper);}
+  .bank:active{transform:scale(.94); border-color:var(--copper);}
   .bank:focus-visible{outline:3px solid var(--turmeric);}
   .bank-logo{
-    width:40px; height:40px; border-radius:12px;
+    width:100%; height:100%;
+    border-radius:14px;
     display:grid; place-items:center;
-    font-weight:900; font-size:11px; letter-spacing:.02em; color:#fff; flex-shrink:0;
+    font-weight:900; font-size:11px; letter-spacing:.02em; color:#fff;
   }
-  .bank strong{display:block; font-size:13px;}
-  .bank em{display:block; font-style:normal; font-size:10.5px; color:var(--ink-soft); font-weight:600;}
 
   .hint{
     margin-top:12px;
     font-size:12px; color:var(--ink-soft); line-height:1.45;
     background:rgba(212,160,23,.12);
     border-radius:12px; padding:10px 12px;
+    text-align:center;
   }
   .sheet-actions{display:flex; gap:8px; margin-top:14px;}
   .ghost,.solid{
@@ -432,6 +448,18 @@
   }
   .ghost{border:1px solid var(--line); background:#fff; color:var(--ink);}
   .solid{border:0; background:var(--leaf); color:var(--rice);}
+  .copy-email-btn{
+    width:100%;
+    min-height:50px;
+    margin-top:14px;
+    border:0;
+    border-radius:14px;
+    background:var(--leaf);
+    color:var(--rice);
+    font-weight:800;
+    font-size:15px;
+  }
+  .copy-email-btn:active{transform:scale(.98);}
 
   /* Handoff overlay after bank tap */
   .handoff{
@@ -490,8 +518,10 @@
   </svg>
 
   <header>
-    <p class="wordmark">Trio</p>
-    <p class="kitchen">kitchen</p>
+    <p class="brand-line">
+      <span class="wordmark">Trio</span>
+      <span class="kitchen">Kitchen</span>
+    </p>
     <p class="moms">
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7-4.35-9.5-8.5C.7 8.9 2.6 5 6.3 5c2 0 3.6 1.1 4.4 2.7C11.5 6.1 13.1 5 15.1 5c3.7 0 5.6 3.9 3.8 7.5C20.2 16.65 12 21 12 21Z"/></svg>
       by Moms
@@ -558,11 +588,12 @@
     </div>
 
     <div class="lock-card">
-      <div class="lock-kicker">Recipient locked · Autodeposit</div>
+      <div class="lock-kicker">Send Interac e-Transfer to</div>
       <div class="lock-name">Trio kitchen</div>
       <div class="lock-mail">
+        <span class="mail-label">Interac email</span>
         <span class="mail-text" id="mailDisplay"></span>
-        <button class="copied-pill" id="copyMail" type="button">Copy</button>
+        <button class="copied-pill" id="copyMail" type="button">Copy email</button>
       </div>
       <div class="lock-amt">
         <small>Amount to send</small>
@@ -570,25 +601,24 @@
       </div>
     </div>
 
-    <div class="steps" aria-label="How to pay">
-      <div class="step"><b>1</b><span>Tap your bank. Email copies itself.</span></div>
-      <div class="step"><b>2</b><span>Open Interac e-Transfer → Send.</span></div>
-      <div class="step"><b>3</b><span>Long-press To → Paste. Don't type.</span></div>
-    </div>
-
-    <p class="bank-label">Canadian bank apps</p>
+    <p class="bank-label">Tap your bank app</p>
     <div class="banks" id="banks"></div>
 
     <p class="hint">
-      Banks never let a website type inside their app — that's by design. We copy
-      <strong>supriyaaprajitha143@gmail.com</strong> to your clipboard, then open the app.
-      Paste once. If Autodeposit is on, there is no security question.
+      Copy the email, open your bank app, then long-press <strong>To</strong> and paste.
     </p>
 
-    <div class="sheet-actions">
-      <button class="ghost" id="copyAmt" type="button">Copy amount</button>
-      <button class="solid" id="paidBtn" type="button">I sent it</button>
-    </div>
+    <button class="copy-email-btn" id="copyEmailBtn" type="button">Copy email</button>
+    <a class="review-btn in-sheet" href="https://g.page/r/CabtycX0_7jxEBI/review" target="_blank" rel="noopener noreferrer" aria-label="Write a Google review">
+      <svg class="review-g" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.4h6.5c-.3 1.5-1.2 2.8-2.5 3.6v3h4.1c2.4-2.2 3.4-5.4 3.4-8.7z"/>
+        <path fill="#34A853" d="M12 24c3.2 0 5.9-1.1 7.9-2.9l-4.1-3c-1.1.8-2.6 1.3-3.8 1.3-3 0-5.5-2-6.4-4.7H1.4v3.1C3.4 21.4 7.4 24 12 24z"/>
+        <path fill="#FBBC05" d="M5.6 14.7c-.2-.7-.4-1.4-.4-2.2s.1-1.5.4-2.2V7.2H1.4C.5 8.9 0 10.4 0 12.5s.5 3.6 1.4 5.3l4.2-3.1z"/>
+        <path fill="#EA4335" d="M12 4.8c1.8 0 3.3.6 4.6 1.8l3.4-3.4C17.9 1.2 15.2 0 12 0 7.4 0 3.4 2.6 1.4 6.5l4.2 3.1C6.5 6.8 9 4.8 12 4.8z"/>
+      </svg>
+      <span>Write a review</span>
+      <span class="review-go" aria-hidden="true">→</span>
+    </a>
   </div>
 </div>
 
@@ -752,9 +782,19 @@
     toast.t = setTimeout(function () { toastEl.classList.remove("on"); }, 3800);
   }
 
+  function setCopyLabels(ok) {
+    var label = ok ? "Copied!" : "Copy email";
+    document.getElementById("copyMail").textContent = label;
+    document.getElementById("copyEmailBtn").textContent = label;
+  }
+
   function copyEmail() {
     return copyText(INTERAC_EMAIL).then(function (ok) {
-      document.getElementById("copyMail").textContent = ok ? "Copied" : "Copy";
+      setCopyLabels(ok);
+      if (ok) {
+        clearTimeout(copyEmail.resetT);
+        copyEmail.resetT = setTimeout(function () { setCopyLabels(false); }, 2200);
+      }
       return ok;
     });
   }
@@ -796,10 +836,10 @@
 
   function renderBanks() {
     document.getElementById("banks").innerHTML = banks.map(function (b) {
+      var short = b.id === "scotia" ? "BNS" : b.name.slice(0, 4).toUpperCase();
       return (
-        '<button class="bank" type="button" data-bank="' + b.id + '">' +
-          '<span class="bank-logo" style="background:' + b.color + '">' + b.name.slice(0, 4).toUpperCase() + '</span>' +
-          '<span><strong>' + b.name + '</strong><em>Open ' + b.name + ' app</em></span>' +
+        '<button class="bank" type="button" data-bank="' + b.id + '" aria-label="Open ' + b.name + ' app">' +
+          '<span class="bank-logo" style="background:' + b.color + '">' + short + '</span>' +
         '</button>'
       );
     }).join("");
@@ -873,20 +913,14 @@
     }
   });
 
-  document.getElementById("copyMail").addEventListener("click", function () {
+  function handleCopyEmail() {
     copyEmail().then(function (ok) {
-      toast(ok ? "Email copied — paste in your bank" : "Copy failed — long-press the email");
+      toast(ok ? "Interac email copied — paste in your bank app" : "Copy failed — long-press the email");
     });
-  });
+  }
 
-  document.getElementById("copyAmt").addEventListener("click", function () {
-    const t = totals();
-    const val = t.sum > 0 ? t.sum.toFixed(2) : "0.00";
-    copyText(val).then(function (ok) {
-      document.getElementById("copyMail").textContent = "Copy email";
-      toast(ok ? "Amount " + money(t.sum) + " copied — copy the email again before paying" : "Could not copy amount");
-    });
-  });
+  document.getElementById("copyMail").addEventListener("click", handleCopyEmail);
+  document.getElementById("copyEmailBtn").addEventListener("click", handleCopyEmail);
 
   document.getElementById("banks").addEventListener("click", function (e) {
     const btn = e.target.closest("[data-bank]");
@@ -910,18 +944,9 @@
     if (pendingBank) launchBank(pendingBank);
   });
 
-  document.getElementById("paidBtn").addEventListener("click", function () {
-    const t = totals();
-    toast(t.count
-      ? "Noted " + money(t.sum) + " — show the Interac sent screen at the stall"
-      : "Send the Interac, then show us the confirmation");
-    hideHandoff();
-    setTimeout(closeSheet, 900);
-  });
-
   document.addEventListener("visibilitychange", function () {
     if (!document.hidden && pendingBank) {
-      toast("Back from " + pendingBank.name + "? Tap I sent it when the transfer went through");
+      toast("Back from " + pendingBank.name + "? Paste the Interac email in the app");
     }
   });
 
