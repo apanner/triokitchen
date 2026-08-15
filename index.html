@@ -893,8 +893,14 @@
       const id = add.getAttribute("data-add");
       setQty(id, 1);
       if (window.TrioAnalytics) {
-        const item = menu.find(function(m){ return m.id === id; });
-        window.TrioAnalytics.track("add_to_cart", { itemId: id, name: item ? item.name : id, price: item ? item.price : 0 });
+        const item = items.find(function (m) { return m.id === id; });
+        window.TrioAnalytics.track("add_to_cart", {
+          itemId: id,
+          name: item ? item.name : id,
+          price: item ? item.price : 0,
+          qty: 1,
+          cat: item ? item.cat : ""
+        });
       }
       return;
     }
@@ -903,7 +909,20 @@
     const parts = delta.getAttribute("data-delta").split(":");
     const id = parts[0];
     const d = parseInt(parts[1], 10);
-    setQty(id, (cart[id] || 0) + d);
+    const prev = cart[id] || 0;
+    setQty(id, prev + d);
+    if (window.TrioAnalytics) {
+      const item = items.find(function (m) { return m.id === id; });
+      const next = cart[id] || 0;
+      window.TrioAnalytics.track(d > 0 ? "add_to_cart" : "remove_from_cart", {
+        itemId: id,
+        name: item ? item.name : id,
+        price: item ? item.price : 0,
+        qty: next,
+        delta: d,
+        cat: item ? item.cat : ""
+      });
+    }
   });
 
   document.getElementById("payBtn").addEventListener("click", function () {
@@ -940,6 +959,13 @@
       }
     });
   }
+  document.querySelectorAll(".review-btn.in-sheet").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      if (window.TrioAnalytics) {
+        window.TrioAnalytics.track("google_review_clicked", { location: "checkout_sheet" });
+      }
+    });
+  });
 
   document.getElementById("copyMail").addEventListener("click", handleCopyEmail);
   document.getElementById("copyEmailBtn").addEventListener("click", handleCopyEmail);
@@ -984,6 +1010,9 @@
     const btn = e.target.closest("[data-cat]");
     if (!btn) return;
     activeCat = btn.getAttribute("data-cat");
+    if (window.TrioAnalytics) {
+      window.TrioAnalytics.track("filter_clicked", { category: activeCat });
+    }
     renderFilters();
     renderMenu();
   });

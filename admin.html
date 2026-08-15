@@ -3,68 +3,73 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1C3A2A">
 <title>Trio Kitchen — Admin & Visitor Analytics</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Figtree:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=Yeseva+One&display=swap" rel="stylesheet">
-<!-- Chart.js for beautiful graphs -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
   :root {
     --leaf: #1C3A2A;
-    --leaf-deep: #0D1D15;
-    --leaf-card: #152B20;
+    --leaf-deep: #12261C;
+    --green: #1F7A45;
     --copper: #B85A2A;
     --copper-hot: #D46A32;
     --turmeric: #D4A017;
     --rice: #F7EFE0;
     --ticket: #FFF9F0;
     --ink: #2A1C12;
-    --ink-soft: #8C7565;
-    --line: rgba(255,255,255,0.08);
-    --gold: #FFB800;
+    --ink-soft: #6A5344;
+    --line: rgba(42, 28, 18, 0.14);
+    --gold: #D4A017;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: 'Figtree', system-ui, sans-serif;
-    background: var(--leaf-deep);
-    color: #EAE3D2;
+    background:
+      radial-gradient(120% 60% at 80% -10%, rgba(212,160,23,.18), transparent 50%),
+      radial-gradient(90% 50% at -10% 10%, rgba(184,90,42,.12), transparent 46%),
+      var(--rice);
+    color: var(--ink);
     min-height: 100vh;
     padding-bottom: 40px;
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Top Navigation */
   header {
-    background: rgba(21, 43, 32, 0.85);
+    background: rgba(255, 249, 240, 0.92);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--line);
-    padding: 16px 24px;
+    padding: 14px 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     position: sticky;
     top: 0;
     z-index: 100;
+    box-shadow: 0 8px 24px -20px rgba(42,28,18,.35);
   }
   .brand {
     display: flex;
     align-items: center;
     gap: 12px;
+    flex-wrap: wrap;
   }
   .brand h1 {
     font-family: 'Caveat', cursive;
-    font-size: 32px;
-    color: var(--turmeric);
+    font-size: 34px;
     line-height: 1;
   }
+  .brand h1 .t { color: var(--copper); }
+  .brand h1 .k { color: var(--green); }
   .badge {
-    background: rgba(212, 160, 23, 0.15);
-    color: var(--turmeric);
-    border: 1px solid rgba(212, 160, 23, 0.3);
-    padding: 3px 8px;
+    background: rgba(28, 58, 42, 0.08);
+    color: var(--leaf);
+    border: 1px solid rgba(28, 58, 42, 0.16);
+    padding: 4px 10px;
     border-radius: 999px;
     font-size: 11px;
     font-weight: 700;
@@ -74,63 +79,65 @@
   .header-actions {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
+    flex-wrap: wrap;
   }
   .btn {
-    background: var(--copper);
+    background: linear-gradient(180deg, var(--copper-hot), var(--copper));
     color: #fff;
     border: none;
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-weight: 600;
+    padding: 9px 14px;
+    border-radius: 999px;
+    font-weight: 700;
     font-size: 13px;
     cursor: pointer;
-    transition: all .2s ease;
+    transition: transform .15s ease;
     display: inline-flex;
     align-items: center;
     gap: 6px;
     text-decoration: none;
+    box-shadow: 0 8px 18px -12px rgba(184,90,42,.7);
   }
-  .btn:hover { background: var(--copper-hot); transform: translateY(-1px); }
+  .btn:hover { transform: translateY(-1px); }
+  .btn:active { transform: scale(.97); }
   .btn-outline {
-    background: transparent;
+    background: #fff;
     border: 1px solid var(--line);
-    color: #EAE3D2;
+    color: var(--ink);
+    box-shadow: none;
   }
-  .btn-outline:hover { background: rgba(255,255,255,0.06); }
+  .btn-outline:hover { background: rgba(28,58,42,.05); border-color: rgba(28,58,42,.22); }
 
-  /* Main Container */
   .container {
     max-width: 1200px;
     margin: 28px auto;
     padding: 0 20px;
   }
 
-  /* Quick Metric KPI Cards */
   .kpi-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 18px;
-    margin-bottom: 28px;
+    gap: 16px;
+    margin-bottom: 24px;
   }
   .kpi-card {
-    background: var(--leaf-card);
+    background: var(--ticket);
     border: 1px solid var(--line);
-    border-radius: 14px;
-    padding: 20px;
+    border-radius: 18px;
+    padding: 18px 20px;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    box-shadow: 0 14px 30px -22px rgba(42,28,18,.4);
   }
   .kpi-card::after {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0; height: 3px;
-    background: linear-gradient(90deg, var(--turmeric), var(--copper));
+    background: linear-gradient(90deg, var(--turmeric), var(--copper), var(--green));
   }
   .kpi-title {
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 11px;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.8px;
     color: var(--ink-soft);
@@ -139,57 +146,56 @@
     justify-content: space-between;
   }
   .kpi-value {
-    font-size: 28px;
-    font-weight: 800;
-    color: #fff;
+    font-family: 'Caveat', cursive;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--leaf);
+    line-height: 1;
   }
   .kpi-sub {
     font-size: 12px;
-    color: #7DAA8F;
-    margin-top: 6px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
+    color: var(--ink-soft);
+    margin-top: 8px;
   }
+  .kpi-sub strong { color: var(--green); }
 
-  /* Grid Layout for Charts and Tables */
   .dashboard-grid {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    gap: 22px;
-    margin-bottom: 28px;
+    gap: 18px;
+    margin-bottom: 24px;
   }
   @media(max-width: 900px) {
     .dashboard-grid { grid-template-columns: 1fr; }
   }
 
   .card {
-    background: var(--leaf-card);
+    background: var(--ticket);
     border: 1px solid var(--line);
-    border-radius: 14px;
-    padding: 22px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    border-radius: 18px;
+    padding: 20px;
+    box-shadow: 0 14px 30px -22px rgba(42,28,18,.35);
   }
   .card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 18px;
+    gap: 10px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
   }
   .card-title {
     font-size: 16px;
-    font-weight: 700;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    font-weight: 800;
+    color: var(--leaf);
   }
+  .muted { font-size: 12px; color: var(--ink-soft); }
 
-  /* Data Tables */
   .table-wrap {
     overflow-x: auto;
-    border-radius: 8px;
+    border-radius: 14px;
     border: 1px solid var(--line);
+    background: #fff;
   }
   table {
     width: 100%;
@@ -198,30 +204,29 @@
     text-align: left;
   }
   th {
-    background: rgba(0,0,0,0.25);
+    background: var(--leaf);
     padding: 12px 14px;
-    font-weight: 600;
-    color: var(--turmeric);
+    font-weight: 700;
+    color: var(--rice);
     border-bottom: 1px solid var(--line);
+    white-space: nowrap;
   }
   td {
     padding: 12px 14px;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
+    border-bottom: 1px solid rgba(42,28,18,.08);
+    color: var(--ink);
   }
-  tr:hover td {
-    background: rgba(255,255,255,0.02);
-  }
+  tr:hover td { background: rgba(28,58,42,.035); }
 
-  /* Reviews Section */
   .reviews-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 14px;
   }
   .review-card {
-    background: rgba(0,0,0,0.2);
+    background: #fff;
     border: 1px solid var(--line);
-    border-radius: 12px;
+    border-radius: 14px;
     padding: 16px;
   }
   .reviewer {
@@ -241,15 +246,17 @@
     font-weight: 700;
     color: #fff;
   }
-  .rev-name { font-weight: 700; font-size: 14px; color: #fff; }
+  .rev-name { font-weight: 800; font-size: 14px; color: var(--ink); }
   .rev-meta { font-size: 11px; color: var(--ink-soft); }
-  .stars { color: var(--gold); font-size: 13px; margin-bottom: 8px; }
-  .review-text { font-size: 13px; line-height: 1.4; color: #D1C7B7; }
+  .stars { color: var(--turmeric); font-size: 13px; margin-bottom: 8px; }
+  .review-text { font-size: 13px; line-height: 1.45; color: var(--ink-soft); }
 
-  /* PIN Gate Overlay */
   #pinGate {
     position: fixed; inset: 0;
-    background: var(--leaf-deep);
+    background:
+      radial-gradient(100% 60% at 80% 0%, rgba(212,160,23,.22), transparent 50%),
+      radial-gradient(80% 50% at 0% 20%, rgba(184,90,42,.14), transparent 45%),
+      var(--rice);
     z-index: 1000;
     display: flex;
     align-items: center;
@@ -257,68 +264,66 @@
     padding: 20px;
   }
   .pin-box {
-    background: var(--leaf-card);
+    background: var(--ticket);
     border: 1px solid var(--line);
-    border-radius: 18px;
+    border-radius: 22px;
     padding: 36px 28px;
     width: 100%;
-    max-width: 360px;
+    max-width: 380px;
     text-align: center;
-    box-shadow: 0 16px 40px rgba(0,0,0,0.6);
+    box-shadow: 0 18px 40px -22px rgba(42,28,18,.45);
   }
   .pin-box h2 {
     font-family: 'Caveat', cursive;
-    font-size: 38px;
-    color: var(--turmeric);
+    font-size: 40px;
     margin-bottom: 4px;
   }
+  .pin-box h2 .t { color: var(--copper); }
+  .pin-box h2 .k { color: var(--green); }
+  .pin-box p { font-size: 13px; color: var(--ink-soft); margin-bottom: 12px; }
   .pin-input {
     width: 100%;
     padding: 14px;
-    background: rgba(0,0,0,0.3);
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    color: #fff;
+    background: #fff;
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    color: var(--ink);
     font-size: 18px;
     text-align: center;
     letter-spacing: 4px;
     margin: 18px 0;
     outline: none;
   }
-  .pin-input:focus {
-    border-color: var(--turmeric);
-  }
+  .pin-input:focus { border-color: var(--leaf); }
 </style>
 </head>
 <body>
 
-<!-- PIN Protection Gate -->
 <div id="pinGate">
   <div class="pin-box">
-    <h2>Trio Kitchen</h2>
-    <p style="font-size:13px; color:#A79585; margin-bottom:12px;">Enter Admin PIN to access visitor traffic & marketing metrics</p>
+    <h2><span class="t">Trio</span> <span class="k">Kitchen</span></h2>
+    <p>Enter Admin PIN to access visitor traffic & marketing metrics</p>
     <form id="pinForm">
       <input type="password" id="adminPin" class="pin-input" placeholder="••••" maxlength="6" autofocus autocomplete="off" />
       <button type="submit" class="btn" style="width:100%; justify-content:center; padding:12px;">Unlock Dashboard</button>
-      <p id="pinError" style="color:#FF6B6B; font-size:12px; margin-top:10px; display:none;">Incorrect PIN. Default is 2026</p>
+      <p id="pinError" style="color:#C0392B; font-size:12px; margin-top:10px; display:none;">Incorrect PIN. Default is 2026</p>
     </form>
   </div>
 </div>
 
 <header>
   <div class="brand">
-    <h1>Trio Kitchen</h1>
-    <span class="badge">Traffic & Marketing Intelligence</span>
+    <h1><span class="t">Trio</span> <span class="k">Kitchen</span></h1>
+    <span class="badge">Admin Analytics</span>
   </div>
   <div class="header-actions">
-    <button class="btn btn-outline" id="exportBtn">📥 Export CSV</button>
-    <button class="btn btn-outline" id="refreshBtn">🔄 Refresh</button>
-    <a href="index.html" class="btn" target="_blank">🌐 Live Menu</a>
+    <button class="btn btn-outline" id="exportBtn">Export CSV</button>
+    <button class="btn btn-outline" id="refreshBtn">Refresh</button>
+    <a href="index.html" class="btn" target="_blank">Live Menu</a>
   </div>
 </header>
 
 <div class="container">
-  <!-- Top KPI Cards -->
   <div class="kpi-grid">
     <div class="kpi-card">
       <div class="kpi-title">Total Visits <span>👁️</span></div>
@@ -333,21 +338,65 @@
     <div class="kpi-card">
       <div class="kpi-title">Bank App Launches <span>🏦</span></div>
       <div class="kpi-value" id="kpiBanks">0</div>
-      <div class="kpi-sub">Top Bank: <strong id="kpiTopBank">RBC</strong></div>
+      <div class="kpi-sub">Top Bank: <strong id="kpiTopBank">—</strong></div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-title">Avg Review Rating <span>⭐</span></div>
-      <div class="kpi-value">4.9 / 5.0</div>
-      <div class="kpi-sub">Based on 48 Google Reviews</div>
+      <div class="kpi-title">Review Clicks <span>⭐</span></div>
+      <div class="kpi-value" id="kpiReviews">0</div>
+      <div class="kpi-sub">Google review button taps</div>
     </div>
   </div>
 
-  <!-- Charts Section -->
   <div class="dashboard-grid">
     <div class="card">
       <div class="card-header">
-        <div class="card-title">📈 Visitor Traffic Trends</div>
-        <span style="font-size:12px; color:var(--ink-soft);">Real-time & Hourly</span>
+        <div class="card-title">Most Selected Dishes</div>
+        <span class="muted">From real cart adds</span>
+      </div>
+      <div style="height: 260px;">
+        <canvas id="dishChart"></canvas>
+      </div>
+      <div class="table-wrap" style="margin-top:14px;">
+        <table>
+          <thead>
+            <tr>
+              <th>Dish</th>
+              <th>Adds</th>
+              <th>Removes</th>
+              <th>Net interest</th>
+            </tr>
+          </thead>
+          <tbody id="dishTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Banks & Filters</div>
+      </div>
+      <div style="height: 220px;">
+        <canvas id="bankChart"></canvas>
+      </div>
+      <div class="table-wrap" style="margin-top:14px;">
+        <table>
+          <thead>
+            <tr>
+              <th>Bank</th>
+              <th>Taps</th>
+            </tr>
+          </thead>
+          <tbody id="bankTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard-grid">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Visitor Traffic Trends</div>
+        <span class="muted">Hourly events</span>
       </div>
       <div style="height: 250px;">
         <canvas id="trafficChart"></canvas>
@@ -356,7 +405,7 @@
 
     <div class="card">
       <div class="card-header">
-        <div class="card-title">📱 Device & Marketing Sources</div>
+        <div class="card-title">Devices & Sources</div>
       </div>
       <div style="height: 250px;">
         <canvas id="sourceChart"></canvas>
@@ -364,40 +413,26 @@
     </div>
   </div>
 
-  <!-- Live Visitor & Geolocation Table -->
-  <div class="card" style="margin-bottom: 28px;">
+  <div class="card" style="margin-bottom: 24px;">
     <div class="card-header">
-      <div class="card-title">🌍 Recent Visitor Traffic, Geolocation & IP Logs</div>
-      <span class="badge" style="background:rgba(28,58,42,0.6);">Marketing Geotargeting</span>
+      <div class="card-title">Recent Visitor Traffic & Location</div>
+      <span class="badge">Live logs</span>
     </div>
     <div class="table-wrap">
       <table>
         <thead>
           <tr>
             <th>Time</th>
-            <th>Location (City / Region)</th>
+            <th>Location</th>
             <th>IP Address</th>
             <th>ISP / Carrier</th>
-            <th>Device / OS</th>
-            <th>Marketing Source</th>
+            <th>Device</th>
+            <th>Source</th>
             <th>Last Action</th>
           </tr>
         </thead>
-        <tbody id="visitorTableBody">
-          <!-- Dynamically populated -->
-        </tbody>
+        <tbody id="visitorTableBody"></tbody>
       </table>
-    </div>
-  </div>
-
-  <!-- Google Reviews & Customer Feedback Section -->
-  <div class="card">
-    <div class="card-header">
-      <div class="card-title">⭐ Verified Google Reviews & Customer Sentiments</div>
-      <a href="https://g.page/r/CabtycX0_7jxEBI/review" target="_blank" class="btn btn-outline" style="font-size:12px;">Open Google Reviews</a>
-    </div>
-    <div class="reviews-grid" id="reviewsContainer">
-      <!-- Reviews Rendered dynamically -->
     </div>
   </div>
 </div>
@@ -413,37 +448,8 @@
   let cachedEvents = [];
   let trafficChartInstance = null;
   let sourceChartInstance = null;
-
-  const googleReviews = [
-    {
-      name: "Priya Sundaram",
-      date: "2 days ago",
-      rating: 5,
-      comment: "The Podi Dosa & Sambar reminded me of home in Chennai! Super crisp and the ghee aroma is pure perfection. Will order again!",
-      likes: 12
-    },
-    {
-      name: "Amitabh Verma",
-      date: "5 days ago",
-      rating: 5,
-      comment: "Loved the Interac ordering experience on my phone! Directly launched RBC app and payment was done in seconds. Best Masala Dosa in GTA.",
-      likes: 8
-    },
-    {
-      name: "Samantha Miller",
-      date: "1 week ago",
-      rating: 5,
-      comment: "Their Medu Vada is so fluffy on the inside and crunchy outside! Outstanding coconut chutney.",
-      likes: 5
-    },
-    {
-      name: "Karthik Raghavan",
-      date: "2 weeks ago",
-      rating: 5,
-      comment: "Authentic homemade flavor! No heavy oil or artificial colors. True mom-made food with love.",
-      likes: 14
-    }
-  ];
+  let dishChartInstance = null;
+  let bankChartInstance = null;
 
   if (sessionStorage.getItem('trio_admin_auth') === 'true') {
     pinGate.style.display = 'none';
@@ -478,14 +484,6 @@
     return Array.isArray(data.events) ? data.events : [];
   }
 
-  async function fetchServerStats() {
-    const res = await fetch('/api/stats', {
-      headers: { 'x-admin-pin': PIN }
-    });
-    if (!res.ok) throw new Error('API ' + res.status);
-    return res.json();
-  }
-
   function mergeEvents(serverEvents, local) {
     const map = new Map();
     [...local, ...serverEvents].forEach(function (e) {
@@ -515,15 +513,26 @@
     });
   }
 
+  function countBy(events, type, keyFn) {
+    const map = {};
+    events.filter(function (e) { return e.type === type; }).forEach(function (e) {
+      const key = keyFn(e) || 'Unknown';
+      map[key] = (map[key] || 0) + 1;
+    });
+    return map;
+  }
+
   function paintDashboard(events) {
-    const totalVisits = events.filter(e => e.type === 'page_view').length || events.length;
-    const uniqueVisitors = new Set(events.map(e => e.visitorId)).size;
+    const pageViews = events.filter(e => e.type === 'page_view');
+    const totalVisits = pageViews.length;
+    const uniqueVisitors = new Set(events.map(e => e.visitorId).filter(Boolean)).size;
     const interacCopies = events.filter(e => e.type === 'copy_interac_email').length;
-    const bankClicks = events.filter(e => e.type === 'bank_clicked' || e.type === 'bank_app_launched').length;
-    const convRate = totalVisits > 0 ? ((interacCopies / totalVisits) * 100).toFixed(1) : 0;
+    const bankEvents = events.filter(e => e.type === 'bank_clicked' || e.type === 'bank_app_launched');
+    const reviewClicks = events.filter(e => e.type === 'google_review_clicked').length;
+    const convRate = totalVisits > 0 ? ((interacCopies / totalVisits) * 100).toFixed(1) : '0.0';
 
     const bankCounts = {};
-    events.filter(e => e.type === 'bank_clicked' || e.type === 'bank_app_launched').forEach(e => {
+    bankEvents.forEach(e => {
       const name = (e.data && (e.data.bank || e.data.bankId)) || 'Unknown';
       bankCounts[name] = (bankCounts[name] || 0) + 1;
     });
@@ -533,15 +542,62 @@
     document.getElementById('kpiUniques').textContent = uniqueVisitors;
     document.getElementById('kpiInterac').textContent = interacCopies;
     document.getElementById('kpiConv').textContent = convRate + '%';
-    document.getElementById('kpiBanks').textContent = bankClicks;
+    document.getElementById('kpiBanks').textContent = bankEvents.length;
     document.getElementById('kpiTopBank').textContent = topBank;
+    document.getElementById('kpiReviews').textContent = reviewClicks;
+
+    // Dish interest from real cart events
+    const dishAdds = {};
+    const dishRemoves = {};
+    events.forEach(e => {
+      const name = e.data && e.data.name;
+      if (!name) return;
+      if (e.type === 'add_to_cart') dishAdds[name] = (dishAdds[name] || 0) + 1;
+      if (e.type === 'remove_from_cart') dishRemoves[name] = (dishRemoves[name] || 0) + 1;
+    });
+    const dishNames = Array.from(new Set([...Object.keys(dishAdds), ...Object.keys(dishRemoves)]));
+    const dishRows = dishNames.map(name => {
+      const adds = dishAdds[name] || 0;
+      const removes = dishRemoves[name] || 0;
+      return { name, adds, removes, net: adds - removes };
+    }).sort((a, b) => b.adds - a.adds || b.net - a.net);
+
+    const dishBody = document.getElementById('dishTableBody');
+    dishBody.innerHTML = '';
+    if (!dishRows.length) {
+      dishBody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--ink-soft);padding:18px;">No dish selections yet.</td></tr>';
+    } else {
+      dishRows.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${row.name}</strong></td>
+          <td>${row.adds}</td>
+          <td>${row.removes}</td>
+          <td><strong style="color:var(--green);">${row.net}</strong></td>
+        `;
+        dishBody.appendChild(tr);
+      });
+    }
+
+    const bankBody = document.getElementById('bankTableBody');
+    bankBody.innerHTML = '';
+    const bankRows = Object.entries(bankCounts).sort((a, b) => b[1] - a[1]);
+    if (!bankRows.length) {
+      bankBody.innerHTML = '<tr><td colspan="2" style="text-align:center;color:var(--ink-soft);padding:18px;">No bank taps yet.</td></tr>';
+    } else {
+      bankRows.forEach(([name, count]) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td><strong>${name}</strong></td><td>${count}</td>`;
+        bankBody.appendChild(tr);
+      });
+    }
 
     const tbody = document.getElementById('visitorTableBody');
     tbody.innerHTML = '';
-    const recent = [...events].reverse().slice(0, 40);
+    const recent = [...events].reverse().slice(0, 50);
 
     if (!recent.length) {
-      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#9B8877;padding:24px;">No visits yet. Open the live menu on a phone to start collecting traffic.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--ink-soft);padding:24px;">No visits yet. Open the live menu to start collecting real traffic.</td></tr>';
     }
 
     recent.forEach(ev => {
@@ -550,75 +606,111 @@
         month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
       });
 
-      let actionTag = '<span style="color:#7DAA8F;">Page View</span>';
-      if (ev.type === 'copy_interac_email') actionTag = '<strong style="color:var(--turmeric);">📋 Interac Copied</strong>';
-      if (ev.type === 'bank_clicked') actionTag = `<strong style="color:var(--copper-hot);">🏦 ${ev.data && ev.data.bank ? ev.data.bank : 'Bank'}</strong>`;
-      if (ev.type === 'bank_app_launched') actionTag = `<strong style="color:var(--copper-hot);">🚀 App ${ev.data && ev.data.bank ? ev.data.bank : ''}</strong>`;
-      if (ev.type === 'add_to_cart') actionTag = `<span style="color:#FFB800;">🛒 Added ${ev.data && ev.data.name ? ev.data.name : 'Item'}</span>`;
-      if (ev.type === 'google_review_clicked') actionTag = '<strong style="color:#4285F4;">⭐ Review click</strong>';
-      if (ev.type === 'open_checkout_sheet') actionTag = '<span style="color:#D4A017;">💳 Checkout open</span>';
+      let actionTag = '<span style="color:var(--green);">' + (ev.type || 'event') + '</span>';
+      if (ev.type === 'page_view') actionTag = '<span style="color:var(--green);">Page View</span>';
+      if (ev.type === 'copy_interac_email') actionTag = '<strong style="color:var(--turmeric);">Interac Copied</strong>';
+      if (ev.type === 'bank_clicked') actionTag = `<strong style="color:var(--copper-hot);">${ev.data && ev.data.bank ? ev.data.bank : 'Bank'}</strong>`;
+      if (ev.type === 'bank_app_launched') actionTag = `<strong style="color:var(--copper-hot);">App ${ev.data && ev.data.bank ? ev.data.bank : ''}</strong>`;
+      if (ev.type === 'add_to_cart') actionTag = `<span style="color:var(--turmeric);">Added ${ev.data && ev.data.name ? ev.data.name : 'Item'}</span>`;
+      if (ev.type === 'remove_from_cart') actionTag = `<span style="color:var(--ink-soft);">Removed ${ev.data && ev.data.name ? ev.data.name : 'Item'}</span>`;
+      if (ev.type === 'google_review_clicked') actionTag = '<strong style="color:#1a73e8;">Review click</strong>';
+      if (ev.type === 'open_checkout_sheet') actionTag = '<span style="color:var(--turmeric);">Checkout open</span>';
+      if (ev.type === 'filter_clicked') actionTag = `<span style="color:var(--leaf);">Filter: ${ev.data && ev.data.category ? ev.data.category : ''}</span>`;
 
       tr.innerHTML = `
-        <td style="color:#9B8877; font-family:monospace;">${timeStr}</td>
+        <td style="color:var(--ink-soft); font-family:monospace;">${timeStr}</td>
         <td><strong>${ev.city || '—'}</strong>, ${ev.region || ''}</td>
-        <td style="font-family:monospace; color:#E0D5C1;">${ev.ip || '—'}</td>
-        <td style="color:#A39180;">${ev.isp || '—'}</td>
-        <td><span class="badge" style="background:rgba(255,255,255,0.06); color:#fff;">${ev.device || 'Mobile'}</span></td>
+        <td style="font-family:monospace; color:var(--ink);">${ev.ip || '—'}</td>
+        <td style="color:var(--ink-soft);">${ev.isp || '—'}</td>
+        <td><span class="badge">${ev.device || '—'}</span></td>
         <td>${ev.referrer || 'Direct'}</td>
         <td>${actionTag}</td>
       `;
       tbody.appendChild(tr);
     });
 
-    const revContainer = document.getElementById('reviewsContainer');
-    revContainer.innerHTML = '';
-    googleReviews.forEach(r => {
-      const card = document.createElement('div');
-      card.className = 'review-card';
-      const initials = r.name.split(' ').map(n => n[0]).join('');
-      card.innerHTML = `
-        <div class="reviewer">
-          <div class="avatar">${initials}</div>
-          <div>
-            <div class="rev-name">${r.name}</div>
-            <div class="rev-meta">${r.date} • Google Verified Reviewer</div>
-          </div>
-        </div>
-        <div class="stars">★★★★★</div>
-        <div class="review-text">“${r.comment}”</div>
-      `;
-      revContainer.appendChild(card);
-    });
-
-    renderCharts(events);
+    renderCharts(events, dishRows, bankRows);
   }
 
-  function renderCharts(events) {
+  function renderCharts(events, dishRows, bankRows) {
     const ctxTraffic = document.getElementById('trafficChart').getContext('2d');
     const ctxSource = document.getElementById('sourceChart').getContext('2d');
+    const ctxDish = document.getElementById('dishChart').getContext('2d');
+    const ctxBank = document.getElementById('bankChart').getContext('2d');
 
-    const sources = {};
-    events.forEach(e => {
-      const s = e.referrer || 'Direct';
-      sources[s] = (sources[s] || 0) + 1;
+    const topDishes = dishRows.slice(0, 8);
+    if (dishChartInstance) dishChartInstance.destroy();
+    dishChartInstance = new Chart(ctxDish, {
+      type: 'bar',
+      data: {
+        labels: topDishes.length ? topDishes.map(d => d.name) : ['No data'],
+        datasets: [{
+          label: 'Times added',
+          data: topDishes.length ? topDishes.map(d => d.adds) : [0],
+          backgroundColor: '#1C3A2A'
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          x: { beginAtZero: true, ticks: { color: '#6A5344', precision: 0 }, grid: { color: 'rgba(42,28,18,0.08)' } },
+          y: { ticks: { color: '#2A1C12' }, grid: { display: false } }
+        },
+        plugins: { legend: { display: false } }
+      }
     });
-    if (!Object.keys(sources).length) sources['No data yet'] = 1;
 
-    if (sourceChartInstance) sourceChartInstance.destroy();
-    sourceChartInstance = new Chart(ctxSource, {
+    if (bankChartInstance) bankChartInstance.destroy();
+    bankChartInstance = new Chart(ctxBank, {
       type: 'doughnut',
       data: {
-        labels: Object.keys(sources),
+        labels: bankRows.length ? bankRows.map(r => r[0]) : ['No banks yet'],
         datasets: [{
-          data: Object.values(sources),
-          backgroundColor: ['#D4A017', '#B85A2A', '#2D6A4F', '#40916C', '#D46A32', '#4285F4']
+          data: bankRows.length ? bankRows.map(r => r[1]) : [1],
+          backgroundColor: ['#003da5', '#008A00', '#EC111A', '#0079C1', '#C41F3E', '#D4A017']
         }]
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-          legend: { position: 'bottom', labels: { color: '#EAE3D2', font: { family: 'Figtree' } } }
+          legend: { position: 'bottom', labels: { color: '#2A1C12', font: { family: 'Figtree' } } }
+        }
+      }
+    });
+
+    const sources = {};
+    const devices = {};
+    events.forEach(e => {
+      const s = e.referrer || 'Direct';
+      sources[s] = (sources[s] || 0) + 1;
+      const d = e.device || 'Unknown';
+      devices[d] = (devices[d] || 0) + 1;
+    });
+    const sourceLabels = Object.keys(sources);
+    const deviceLabels = Object.keys(devices);
+    const mixLabels = sourceLabels.length ? sourceLabels : (deviceLabels.length ? deviceLabels : ['No data yet']);
+    const mixData = sourceLabels.length
+      ? sourceLabels.map(k => sources[k])
+      : (deviceLabels.length ? deviceLabels.map(k => devices[k]) : [1]);
+
+    if (sourceChartInstance) sourceChartInstance.destroy();
+    sourceChartInstance = new Chart(ctxSource, {
+      type: 'doughnut',
+      data: {
+        labels: mixLabels,
+        datasets: [{
+          data: mixData,
+          backgroundColor: ['#D4A017', '#B85A2A', '#1C3A2A', '#1F7A45', '#D46A32', '#1a73e8']
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'bottom', labels: { color: '#2A1C12', font: { family: 'Figtree' } } }
         }
       }
     });
@@ -641,8 +733,8 @@
         datasets: [{
           label: 'Events',
           data: values,
-          borderColor: '#D4A017',
-          backgroundColor: 'rgba(212, 160, 23, 0.1)',
+          borderColor: '#1C3A2A',
+          backgroundColor: 'rgba(28, 58, 42, 0.12)',
           fill: true,
           tension: 0.4
         }]
@@ -651,11 +743,11 @@
         responsive: true,
         maintainAspectRatio: false,
         scales: {
-          x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9B8877' } },
-          y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9B8877' }, beginAtZero: true }
+          x: { grid: { color: 'rgba(42,28,18,0.08)' }, ticks: { color: '#6A5344' } },
+          y: { grid: { color: 'rgba(42,28,18,0.08)' }, ticks: { color: '#6A5344' }, beginAtZero: true }
         },
         plugins: {
-          legend: { labels: { color: '#EAE3D2' } }
+          legend: { labels: { color: '#2A1C12' } }
         }
       }
     });
@@ -663,7 +755,7 @@
 
   document.getElementById('exportBtn').addEventListener('click', function() {
     const events = cachedEvents.length ? cachedEvents : localEvents();
-    if (events.length === 0) { alert('No event data to export.'); return; }
+    if (events.length === 0) { alert('No real event data to export yet.'); return; }
 
     const headers = ['Timestamp', 'VisitorID', 'EventType', 'IP', 'City', 'Region', 'Country', 'ISP', 'Device', 'Referrer', 'Details'];
     const rows = events.map(e => [
@@ -697,12 +789,11 @@
     renderDashboard();
   }
 
-  // Keep dashboard fresh while open
   setInterval(function () {
     if (sessionStorage.getItem('trio_admin_auth') === 'true' && pinGate.style.display === 'none') {
       renderDashboard();
     }
-  }, 20000);
+  }, 15000);
 })();
 </script>
 </body>
