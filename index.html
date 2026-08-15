@@ -526,7 +526,7 @@
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7-4.35-9.5-8.5C.7 8.9 2.6 5 6.3 5c2 0 3.6 1.1 4.4 2.7C11.5 6.1 13.1 5 15.1 5c3.7 0 5.6 3.9 3.8 7.5C20.2 16.65 12 21 12 21Z"/></svg>
       by Moms
     </p>
-    <a class="review-btn" href="https://g.page/r/CabtycX0_7jxEBI/review" target="_blank" rel="noopener noreferrer" aria-label="Write a Google review">
+    <a class="review-btn" id="writeReviewBtn" href="https://g.page/r/CabtycX0_7jxEBI/review" target="_blank" rel="noopener noreferrer" aria-label="Write a Google review">
       <svg class="review-g" viewBox="0 0 24 24" aria-hidden="true">
         <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.4h6.5c-.3 1.5-1.2 2.8-2.5 3.6v3h4.1c2.4-2.2 3.4-5.4 3.4-8.7z"/>
         <path fill="#34A853" d="M12 24c3.2 0 5.9-1.1 7.9-2.9l-4.1-3c-1.1.8-2.6 1.3-3.8 1.3-3 0-5.5-2-6.4-4.7H1.4v3.1C3.4 21.4 7.4 24 12 24z"/>
@@ -890,7 +890,12 @@
   menuEl.addEventListener("click", function (e) {
     const add = e.target.closest("[data-add]");
     if (add) {
-      setQty(add.getAttribute("data-add"), 1);
+      const id = add.getAttribute("data-add");
+      setQty(id, 1);
+      if (window.TrioAnalytics) {
+        const item = menu.find(function(m){ return m.id === id; });
+        window.TrioAnalytics.track("add_to_cart", { itemId: id, name: item ? item.name : id, price: item ? item.price : 0 });
+      }
       return;
     }
     const delta = e.target.closest("[data-delta]");
@@ -901,7 +906,12 @@
     setQty(id, (cart[id] || 0) + d);
   });
 
-  document.getElementById("payBtn").addEventListener("click", openSheet);
+  document.getElementById("payBtn").addEventListener("click", function () {
+    if (window.TrioAnalytics) {
+      window.TrioAnalytics.track("open_checkout_sheet", { total: totalCost(), itemCount: totalQty() });
+    }
+    openSheet();
+  });
   document.getElementById("closeSheet").addEventListener("click", closeSheet);
   scrim.addEventListener("click", function (e) {
     if (e.target === scrim) closeSheet();
@@ -916,6 +926,18 @@
   function handleCopyEmail() {
     copyEmail().then(function (ok) {
       toast(ok ? "Interac email copied — paste in your bank app" : "Copy failed — long-press the email");
+      if (window.TrioAnalytics) {
+        window.TrioAnalytics.track("copy_interac_email", { success: ok, total: totalCost() });
+      }
+    });
+  }
+
+  const writeRevBtn = document.getElementById("writeReviewBtn");
+  if (writeRevBtn) {
+    writeRevBtn.addEventListener("click", function () {
+      if (window.TrioAnalytics) {
+        window.TrioAnalytics.track("google_review_clicked", { location: "header" });
+      }
     });
   }
 
@@ -927,6 +949,9 @@
     if (!btn) return;
     const bank = banks.find(function (b) { return b.id === btn.getAttribute("data-bank"); });
     if (!bank) return;
+    if (window.TrioAnalytics) {
+      window.TrioAnalytics.track("bank_clicked", { bank: bank.name, bankId: bank.id, total: totalCost() });
+    }
     copyEmail().then(function (ok) {
       toast(ok
         ? "Interac email copied. Please open the " + bank.name + " app to send Interac."
@@ -941,7 +966,12 @@
 
   document.getElementById("handoffStay").addEventListener("click", hideHandoff);
   document.getElementById("handoffOpen").addEventListener("click", function () {
-    if (pendingBank) launchBank(pendingBank);
+    if (pendingBank) {
+      if (window.TrioAnalytics) {
+        window.TrioAnalytics.track("bank_app_launched", { bank: pendingBank.name });
+      }
+      launchBank(pendingBank);
+    }
   });
 
   document.addEventListener("visibilitychange", function () {
@@ -964,5 +994,6 @@
   syncTotals();
 })();
 </script>
+<script src="assets/tracker.js"></script>
 </body>
 </html>

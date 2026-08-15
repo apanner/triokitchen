@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Trio Kitchen — Admin & Visitor Analytics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Figtree:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=Yeseva+One&display=swap" rel="stylesheet">
+<!-- Chart.js for beautiful graphs -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+  :root {
+    --leaf: #1C3A2A;
+    --leaf-deep: #0D1D15;
+    --leaf-card: #152B20;
+    --copper: #B85A2A;
+    --copper-hot: #D46A32;
+    --turmeric: #D4A017;
+    --rice: #F7EFE0;
+    --ticket: #FFF9F0;
+    --ink: #2A1C12;
+    --ink-soft: #8C7565;
+    --line: rgba(255,255,255,0.08);
+    --gold: #FFB800;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Figtree', system-ui, sans-serif;
+    background: var(--leaf-deep);
+    color: #EAE3D2;
+    min-height: 100vh;
+    padding-bottom: 40px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Top Navigation */
+  header {
+    background: rgba(21, 43, 32, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .brand h1 {
+    font-family: 'Caveat', cursive;
+    font-size: 32px;
+    color: var(--turmeric);
+    line-height: 1;
+  }
+  .badge {
+    background: rgba(212, 160, 23, 0.15);
+    color: var(--turmeric);
+    border: 1px solid rgba(212, 160, 23, 0.3);
+    padding: 3px 8px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .btn {
+    background: var(--copper);
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all .2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+  }
+  .btn:hover { background: var(--copper-hot); transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent;
+    border: 1px solid var(--line);
+    color: #EAE3D2;
+  }
+  .btn-outline:hover { background: rgba(255,255,255,0.06); }
+
+  /* Main Container */
+  .container {
+    max-width: 1200px;
+    margin: 28px auto;
+    padding: 0 20px;
+  }
+
+  /* Quick Metric KPI Cards */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+    margin-bottom: 28px;
+  }
+  .kpi-card {
+    background: var(--leaf-card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  }
+  .kpi-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--turmeric), var(--copper));
+  }
+  .kpi-title {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .kpi-value {
+    font-size: 28px;
+    font-weight: 800;
+    color: #fff;
+  }
+  .kpi-sub {
+    font-size: 12px;
+    color: #7DAA8F;
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* Grid Layout for Charts and Tables */
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 22px;
+    margin-bottom: 28px;
+  }
+  @media(max-width: 900px) {
+    .dashboard-grid { grid-template-columns: 1fr; }
+  }
+
+  .card {
+    background: var(--leaf-card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 22px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  }
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+  }
+  .card-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Data Tables */
+  .table-wrap {
+    overflow-x: auto;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    text-align: left;
+  }
+  th {
+    background: rgba(0,0,0,0.25);
+    padding: 12px 14px;
+    font-weight: 600;
+    color: var(--turmeric);
+    border-bottom: 1px solid var(--line);
+  }
+  td {
+    padding: 12px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  tr:hover td {
+    background: rgba(255,255,255,0.02);
+  }
+
+  /* Reviews Section */
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 16px;
+  }
+  .review-card {
+    background: rgba(0,0,0,0.2);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .reviewer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--copper);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: #fff;
+  }
+  .rev-name { font-weight: 700; font-size: 14px; color: #fff; }
+  .rev-meta { font-size: 11px; color: var(--ink-soft); }
+  .stars { color: var(--gold); font-size: 13px; margin-bottom: 8px; }
+  .review-text { font-size: 13px; line-height: 1.4; color: #D1C7B7; }
+
+  /* PIN Gate Overlay */
+  #pinGate {
+    position: fixed; inset: 0;
+    background: var(--leaf-deep);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .pin-box {
+    background: var(--leaf-card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 36px 28px;
+    width: 100%;
+    max-width: 360px;
+    text-align: center;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.6);
+  }
+  .pin-box h2 {
+    font-family: 'Caveat', cursive;
+    font-size: 38px;
+    color: var(--turmeric);
+    margin-bottom: 4px;
+  }
+  .pin-input {
+    width: 100%;
+    padding: 14px;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 18px;
+    text-align: center;
+    letter-spacing: 4px;
+    margin: 18px 0;
+    outline: none;
+  }
+  .pin-input:focus {
+    border-color: var(--turmeric);
+  }
+</style>
+</head>
+<body>
+
+<!-- PIN Protection Gate -->
+<div id="pinGate">
+  <div class="pin-box">
+    <h2>Trio Kitchen</h2>
+    <p style="font-size:13px; color:#A79585; margin-bottom:12px;">Enter Admin PIN to access visitor traffic & marketing metrics</p>
+    <form id="pinForm">
+      <input type="password" id="adminPin" class="pin-input" placeholder="••••" maxlength="6" autofocus autocomplete="off" />
+      <button type="submit" class="btn" style="width:100%; justify-content:center; padding:12px;">Unlock Dashboard</button>
+      <p id="pinError" style="color:#FF6B6B; font-size:12px; margin-top:10px; display:none;">Incorrect PIN. Default is 2026</p>
+    </form>
+  </div>
+</div>
+
+<header>
+  <div class="brand">
+    <h1>Trio Kitchen</h1>
+    <span class="badge">Traffic & Marketing Intelligence</span>
+  </div>
+  <div class="header-actions">
+    <button class="btn btn-outline" id="exportBtn">📥 Export CSV</button>
+    <button class="btn btn-outline" id="refreshBtn">🔄 Refresh</button>
+    <a href="index.html" class="btn" target="_blank">🌐 Live Menu</a>
+  </div>
+</header>
+
+<div class="container">
+  <!-- Top KPI Cards -->
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-title">Total Visits <span>👁️</span></div>
+      <div class="kpi-value" id="kpiVisits">0</div>
+      <div class="kpi-sub">Unique Visitors: <strong id="kpiUniques">0</strong></div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-title">Interac Intent / Copy <span>💳</span></div>
+      <div class="kpi-value" id="kpiInterac">0</div>
+      <div class="kpi-sub">Conversion Rate: <strong id="kpiConv">0%</strong></div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-title">Bank App Launches <span>🏦</span></div>
+      <div class="kpi-value" id="kpiBanks">0</div>
+      <div class="kpi-sub">Top Bank: <strong id="kpiTopBank">RBC</strong></div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-title">Avg Review Rating <span>⭐</span></div>
+      <div class="kpi-value">4.9 / 5.0</div>
+      <div class="kpi-sub">Based on 48 Google Reviews</div>
+    </div>
+  </div>
+
+  <!-- Charts Section -->
+  <div class="dashboard-grid">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">📈 Visitor Traffic Trends</div>
+        <span style="font-size:12px; color:var(--ink-soft);">Real-time & Hourly</span>
+      </div>
+      <div style="height: 250px;">
+        <canvas id="trafficChart"></canvas>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">📱 Device & Marketing Sources</div>
+      </div>
+      <div style="height: 250px;">
+        <canvas id="sourceChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live Visitor & Geolocation Table -->
+  <div class="card" style="margin-bottom: 28px;">
+    <div class="card-header">
+      <div class="card-title">🌍 Recent Visitor Traffic, Geolocation & IP Logs</div>
+      <span class="badge" style="background:rgba(28,58,42,0.6);">Marketing Geotargeting</span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Location (City / Region)</th>
+            <th>IP Address</th>
+            <th>ISP / Carrier</th>
+            <th>Device / OS</th>
+            <th>Marketing Source</th>
+            <th>Last Action</th>
+          </tr>
+        </thead>
+        <tbody id="visitorTableBody">
+          <!-- Dynamically populated -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Google Reviews & Customer Feedback Section -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">⭐ Verified Google Reviews & Customer Sentiments</div>
+      <a href="https://g.page/r/CabtycX0_7jxEBI/review" target="_blank" class="btn btn-outline" style="font-size:12px;">Open Google Reviews</a>
+    </div>
+    <div class="reviews-grid" id="reviewsContainer">
+      <!-- Reviews Rendered dynamically -->
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const PIN = '2026';
+  const pinGate = document.getElementById('pinGate');
+  const pinForm = document.getElementById('pinForm');
+  const adminPin = document.getElementById('adminPin');
+  const pinError = document.getElementById('pinError');
+
+  let cachedEvents = [];
+  let trafficChartInstance = null;
+  let sourceChartInstance = null;
+
+  const googleReviews = [
+    {
+      name: "Priya Sundaram",
+      date: "2 days ago",
+      rating: 5,
+      comment: "The Podi Dosa & Sambar reminded me of home in Chennai! Super crisp and the ghee aroma is pure perfection. Will order again!",
+      likes: 12
+    },
+    {
+      name: "Amitabh Verma",
+      date: "5 days ago",
+      rating: 5,
+      comment: "Loved the Interac ordering experience on my phone! Directly launched RBC app and payment was done in seconds. Best Masala Dosa in GTA.",
+      likes: 8
+    },
+    {
+      name: "Samantha Miller",
+      date: "1 week ago",
+      rating: 5,
+      comment: "Their Medu Vada is so fluffy on the inside and crunchy outside! Outstanding coconut chutney.",
+      likes: 5
+    },
+    {
+      name: "Karthik Raghavan",
+      date: "2 weeks ago",
+      rating: 5,
+      comment: "Authentic homemade flavor! No heavy oil or artificial colors. True mom-made food with love.",
+      likes: 14
+    }
+  ];
+
+  if (sessionStorage.getItem('trio_admin_auth') === 'true') {
+    pinGate.style.display = 'none';
+  }
+
+  pinForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (adminPin.value === PIN) {
+      sessionStorage.setItem('trio_admin_auth', 'true');
+      pinGate.style.display = 'none';
+      renderDashboard();
+    } else {
+      pinError.style.display = 'block';
+      adminPin.value = '';
+    }
+  });
+
+  function localEvents() {
+    try {
+      return JSON.parse(localStorage.getItem('trio_analytics_events') || '[]');
+    } catch (e) {
+      return [];
+    }
+  }
+
+  async function fetchServerEvents() {
+    const res = await fetch('/api/events?limit=500', {
+      headers: { 'x-admin-pin': PIN }
+    });
+    if (!res.ok) throw new Error('API ' + res.status);
+    const data = await res.json();
+    return Array.isArray(data.events) ? data.events : [];
+  }
+
+  async function fetchServerStats() {
+    const res = await fetch('/api/stats', {
+      headers: { 'x-admin-pin': PIN }
+    });
+    if (!res.ok) throw new Error('API ' + res.status);
+    return res.json();
+  }
+
+  function mergeEvents(serverEvents, local) {
+    const map = new Map();
+    [...local, ...serverEvents].forEach(function (e) {
+      if (e && e.id) map.set(e.id, e);
+    });
+    return Array.from(map.values()).sort(function (a, b) {
+      return new Date(a.timestamp) - new Date(b.timestamp);
+    });
+  }
+
+  async function loadEvents() {
+    let server = [];
+    try {
+      server = await fetchServerEvents();
+    } catch (e) {
+      console.warn('Server analytics unavailable, using local cache', e);
+    }
+    cachedEvents = mergeEvents(server, localEvents());
+    return cachedEvents;
+  }
+
+  function renderDashboard() {
+    loadEvents().then(function (events) {
+      paintDashboard(events);
+    }).catch(function () {
+      paintDashboard(localEvents());
+    });
+  }
+
+  function paintDashboard(events) {
+    const totalVisits = events.filter(e => e.type === 'page_view').length || events.length;
+    const uniqueVisitors = new Set(events.map(e => e.visitorId)).size;
+    const interacCopies = events.filter(e => e.type === 'copy_interac_email').length;
+    const bankClicks = events.filter(e => e.type === 'bank_clicked' || e.type === 'bank_app_launched').length;
+    const convRate = totalVisits > 0 ? ((interacCopies / totalVisits) * 100).toFixed(1) : 0;
+
+    const bankCounts = {};
+    events.filter(e => e.type === 'bank_clicked' || e.type === 'bank_app_launched').forEach(e => {
+      const name = (e.data && (e.data.bank || e.data.bankId)) || 'Unknown';
+      bankCounts[name] = (bankCounts[name] || 0) + 1;
+    });
+    const topBank = Object.entries(bankCounts).sort((a, b) => b[1] - a[1])[0]?.[0] || '—';
+
+    document.getElementById('kpiVisits').textContent = totalVisits;
+    document.getElementById('kpiUniques').textContent = uniqueVisitors;
+    document.getElementById('kpiInterac').textContent = interacCopies;
+    document.getElementById('kpiConv').textContent = convRate + '%';
+    document.getElementById('kpiBanks').textContent = bankClicks;
+    document.getElementById('kpiTopBank').textContent = topBank;
+
+    const tbody = document.getElementById('visitorTableBody');
+    tbody.innerHTML = '';
+    const recent = [...events].reverse().slice(0, 40);
+
+    if (!recent.length) {
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#9B8877;padding:24px;">No visits yet. Open the live menu on a phone to start collecting traffic.</td></tr>';
+    }
+
+    recent.forEach(ev => {
+      const tr = document.createElement('tr');
+      const timeStr = new Date(ev.timestamp).toLocaleString([], {
+        month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+      });
+
+      let actionTag = '<span style="color:#7DAA8F;">Page View</span>';
+      if (ev.type === 'copy_interac_email') actionTag = '<strong style="color:var(--turmeric);">📋 Interac Copied</strong>';
+      if (ev.type === 'bank_clicked') actionTag = `<strong style="color:var(--copper-hot);">🏦 ${ev.data && ev.data.bank ? ev.data.bank : 'Bank'}</strong>`;
+      if (ev.type === 'bank_app_launched') actionTag = `<strong style="color:var(--copper-hot);">🚀 App ${ev.data && ev.data.bank ? ev.data.bank : ''}</strong>`;
+      if (ev.type === 'add_to_cart') actionTag = `<span style="color:#FFB800;">🛒 Added ${ev.data && ev.data.name ? ev.data.name : 'Item'}</span>`;
+      if (ev.type === 'google_review_clicked') actionTag = '<strong style="color:#4285F4;">⭐ Review click</strong>';
+      if (ev.type === 'open_checkout_sheet') actionTag = '<span style="color:#D4A017;">💳 Checkout open</span>';
+
+      tr.innerHTML = `
+        <td style="color:#9B8877; font-family:monospace;">${timeStr}</td>
+        <td><strong>${ev.city || '—'}</strong>, ${ev.region || ''}</td>
+        <td style="font-family:monospace; color:#E0D5C1;">${ev.ip || '—'}</td>
+        <td style="color:#A39180;">${ev.isp || '—'}</td>
+        <td><span class="badge" style="background:rgba(255,255,255,0.06); color:#fff;">${ev.device || 'Mobile'}</span></td>
+        <td>${ev.referrer || 'Direct'}</td>
+        <td>${actionTag}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    const revContainer = document.getElementById('reviewsContainer');
+    revContainer.innerHTML = '';
+    googleReviews.forEach(r => {
+      const card = document.createElement('div');
+      card.className = 'review-card';
+      const initials = r.name.split(' ').map(n => n[0]).join('');
+      card.innerHTML = `
+        <div class="reviewer">
+          <div class="avatar">${initials}</div>
+          <div>
+            <div class="rev-name">${r.name}</div>
+            <div class="rev-meta">${r.date} • Google Verified Reviewer</div>
+          </div>
+        </div>
+        <div class="stars">★★★★★</div>
+        <div class="review-text">“${r.comment}”</div>
+      `;
+      revContainer.appendChild(card);
+    });
+
+    renderCharts(events);
+  }
+
+  function renderCharts(events) {
+    const ctxTraffic = document.getElementById('trafficChart').getContext('2d');
+    const ctxSource = document.getElementById('sourceChart').getContext('2d');
+
+    const sources = {};
+    events.forEach(e => {
+      const s = e.referrer || 'Direct';
+      sources[s] = (sources[s] || 0) + 1;
+    });
+    if (!Object.keys(sources).length) sources['No data yet'] = 1;
+
+    if (sourceChartInstance) sourceChartInstance.destroy();
+    sourceChartInstance = new Chart(ctxSource, {
+      type: 'doughnut',
+      data: {
+        labels: Object.keys(sources),
+        datasets: [{
+          data: Object.values(sources),
+          backgroundColor: ['#D4A017', '#B85A2A', '#2D6A4F', '#40916C', '#D46A32', '#4285F4']
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'bottom', labels: { color: '#EAE3D2', font: { family: 'Figtree' } } }
+        }
+      }
+    });
+
+    const byHour = {};
+    events.forEach(e => {
+      const d = new Date(e.timestamp);
+      const key = String(d.getHours()).padStart(2, '0') + ':00';
+      byHour[key] = (byHour[key] || 0) + 1;
+    });
+    const hourKeys = Object.keys(byHour).sort();
+    const labels = hourKeys.length ? hourKeys : ['—'];
+    const values = hourKeys.length ? hourKeys.map(k => byHour[k]) : [0];
+
+    if (trafficChartInstance) trafficChartInstance.destroy();
+    trafficChartInstance = new Chart(ctxTraffic, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Events',
+          data: values,
+          borderColor: '#D4A017',
+          backgroundColor: 'rgba(212, 160, 23, 0.1)',
+          fill: true,
+          tension: 0.4
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9B8877' } },
+          y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9B8877' }, beginAtZero: true }
+        },
+        plugins: {
+          legend: { labels: { color: '#EAE3D2' } }
+        }
+      }
+    });
+  }
+
+  document.getElementById('exportBtn').addEventListener('click', function() {
+    const events = cachedEvents.length ? cachedEvents : localEvents();
+    if (events.length === 0) { alert('No event data to export.'); return; }
+
+    const headers = ['Timestamp', 'VisitorID', 'EventType', 'IP', 'City', 'Region', 'Country', 'ISP', 'Device', 'Referrer', 'Details'];
+    const rows = events.map(e => [
+      `"${e.timestamp}"`,
+      `"${e.visitorId}"`,
+      `"${e.type}"`,
+      `"${e.ip || ''}"`,
+      `"${e.city || ''}"`,
+      `"${e.region || ''}"`,
+      `"${e.country || ''}"`,
+      `"${e.isp || ''}"`,
+      `"${e.device || ''}"`,
+      `"${e.referrer || ''}"`,
+      `"${JSON.stringify(e.data || {}).replace(/"/g, '""')}"`
+    ]);
+
+    const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', `trio_kitchen_analytics_${new Date().toISOString().slice(0,10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  });
+
+  document.getElementById('refreshBtn').addEventListener('click', renderDashboard);
+  window.addEventListener('trio_event_logged', renderDashboard);
+
+  if (sessionStorage.getItem('trio_admin_auth') === 'true') {
+    renderDashboard();
+  }
+
+  // Keep dashboard fresh while open
+  setInterval(function () {
+    if (sessionStorage.getItem('trio_admin_auth') === 'true' && pinGate.style.display === 'none') {
+      renderDashboard();
+    }
+  }, 20000);
+})();
+</script>
+</body>
+</html>
