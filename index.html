@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1C3A2A">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>Trio's Kitchen by Moms — Pay with Interac</title>
+<title>Trio kitchen by Moms — Pay with Interac</title>
 <meta name="description" content="Homemade dosas, vada & pulav. Tap your Canadian bank — our Interac email is copied for you. No typing.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -88,7 +88,8 @@
     font-family:'Oswald', sans-serif;
     font-weight:600;
     font-size:clamp(28px, 8.5vw, 36px);
-    letter-spacing:.22em;
+    letter-spacing:.12em;
+    text-transform:lowercase;
     color:#1F7A45;
     margin-top:2px;
   }
@@ -106,27 +107,28 @@
   .review-btn{
     display:flex;
     width:max-content;
-    margin:14px auto 0;
+    margin:16px auto 0;
     align-items:center;
     justify-content:center;
     gap:8px;
-    min-height:40px;
-    padding:8px 14px;
-    border-radius:999px;
-    background:#fff;
-    color:#1f1f1f;
+    min-height:46px;
+    padding:10px 18px 10px 14px;
+    border-radius:14px;
+    background:#1a73e8;
+    color:#fff;
     text-decoration:none;
     font-weight:800;
-    font-size:13px;
-    border:1px solid rgba(42,28,18,.14);
-    box-shadow:0 6px 16px -10px rgba(42,28,18,.45);
+    font-size:14.5px;
+    border:0;
+    box-shadow:0 8px 20px -8px rgba(26,115,232,.75);
   }
-  .review-btn:active{transform:scale(.97);}
+  .review-btn:active{transform:scale(.96); filter:brightness(.95);}
   .review-btn:focus-visible{outline:3px solid var(--turmeric); outline-offset:2px;}
   .review-g{
-    width:18px; height:18px; display:block; flex-shrink:0;
+    width:20px; height:20px; display:block; flex-shrink:0;
+    background:#fff; border-radius:50%; padding:2px;
   }
-  .review-stars{color:#F4B400; letter-spacing:1px; font-size:12px; line-height:1;}
+  .review-go{font-size:16px; font-weight:800; margin-left:2px;}
   .interac-mark{
     width:40px; height:40px;
     border-radius:11px;
@@ -395,6 +397,12 @@
   .banks{
     display:grid; grid-template-columns:1fr 1fr; gap:8px;
   }
+  .bank:last-child:nth-child(odd){
+    grid-column:1 / -1;
+    max-width:calc(50% - 4px);
+    justify-self:center;
+    width:100%;
+  }
   .bank{
     display:flex; align-items:center; gap:10px;
     background:#fff; border:1px solid var(--line);
@@ -453,7 +461,10 @@
     font-size:13px; font-weight:800; z-index:200;
     opacity:0; pointer-events:none;
     transition:.28s cubic-bezier(.2,.9,.2,1.2);
-    max-width:90%;
+    max-width:92%;
+    text-align:center;
+    line-height:1.35;
+    white-space:normal;
   }
   .toast.on{opacity:1; transform:translate(-50%,0);}
 
@@ -479,21 +490,21 @@
   </svg>
 
   <header>
-    <p class="wordmark">Trio's</p>
-    <p class="kitchen">KITCHEN</p>
+    <p class="wordmark">Trio</p>
+    <p class="kitchen">kitchen</p>
     <p class="moms">
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7-4.35-9.5-8.5C.7 8.9 2.6 5 6.3 5c2 0 3.6 1.1 4.4 2.7C11.5 6.1 13.1 5 15.1 5c3.7 0 5.6 3.9 3.8 7.5C20.2 16.65 12 21 12 21Z"/></svg>
       by Moms
     </p>
-    <a class="review-btn" href="https://g.page/r/CabtycX0_7jxEBI/review" target="_blank" rel="noopener noreferrer" aria-label="Leave a Google review">
+    <a class="review-btn" href="https://g.page/r/CabtycX0_7jxEBI/review" target="_blank" rel="noopener noreferrer" aria-label="Write a Google review">
       <svg class="review-g" viewBox="0 0 24 24" aria-hidden="true">
         <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.4h6.5c-.3 1.5-1.2 2.8-2.5 3.6v3h4.1c2.4-2.2 3.4-5.4 3.4-8.7z"/>
         <path fill="#34A853" d="M12 24c3.2 0 5.9-1.1 7.9-2.9l-4.1-3c-1.1.8-2.6 1.3-3.8 1.3-3 0-5.5-2-6.4-4.7H1.4v3.1C3.4 21.4 7.4 24 12 24z"/>
         <path fill="#FBBC05" d="M5.6 14.7c-.2-.7-.4-1.4-.4-2.2s.1-1.5.4-2.2V7.2H1.4C.5 8.9 0 10.4 0 12.5s.5 3.6 1.4 5.3l4.2-3.1z"/>
         <path fill="#EA4335" d="M12 4.8c1.8 0 3.3.6 4.6 1.8l3.4-3.4C17.9 1.2 15.2 0 12 0 7.4 0 3.4 2.6 1.4 6.5l4.2 3.1C6.5 6.8 9 4.8 12 4.8z"/>
       </svg>
-      <span>Google Review</span>
-      <span class="review-stars" aria-hidden="true">★★★★★</span>
+      <span>Write a review</span>
+      <span class="review-go" aria-hidden="true">→</span>
     </a>
     <div class="steam" aria-hidden="true"><span class="wisp"></span><span class="wisp"></span><span class="wisp"></span></div>
   </header>
@@ -514,7 +525,7 @@
 
   <footer>
     Thank you for supporting a family-run stall
-    <span class="sig">— The Trio's Kitchen family</span>
+    <span class="sig">— The Trio kitchen family</span>
   </footer>
 </div>
 
@@ -548,10 +559,10 @@
 
     <div class="lock-card">
       <div class="lock-kicker">Recipient locked · Autodeposit</div>
-      <div class="lock-name">Trio's Kitchen</div>
+      <div class="lock-name">Trio kitchen</div>
       <div class="lock-mail">
         <span class="mail-text" id="mailDisplay"></span>
-        <button class="copied-pill" id="copyMail" type="button">Copied</button>
+        <button class="copied-pill" id="copyMail" type="button">Copy</button>
       </div>
       <div class="lock-amt">
         <small>Amount to send</small>
@@ -583,18 +594,17 @@
 
 <div class="handoff" id="handoff" role="dialog" aria-labelledby="handoffTitle">
   <div class="handoff-card">
-    <div class="lock-kicker" id="handoffBank">Opening bank</div>
-    <h4 id="handoffTitle">Paste — don't type</h4>
+    <div class="lock-kicker" id="handoffBank">Interac email copied</div>
+    <h4 id="handoffTitle">Open your bank app</h4>
     <div class="paste-box">
-      <small>Already on your clipboard</small>
+      <small>Copied to clipboard</small>
       <span id="handoffMail"></span>
     </div>
-    <p class="hint" style="margin-top:10px;">
-      In the bank app: <strong>Move Money → Interac e-Transfer → Send Money</strong>.
-      Tap the To field, then <strong>Paste</strong>. Enter <strong id="handoffAmt">$0.00</strong>.
+    <p class="hint" style="margin-top:10px;" id="handoffHint">
+      Please open your bank app and send Interac. Long-press <strong>To</strong> and tap <strong>Paste</strong>. Don’t type the email.
     </p>
     <div class="sheet-actions">
-      <button class="ghost" id="handoffStay" type="button">Stay here</button>
+      <button class="ghost" id="handoffStay" type="button">Not now</button>
       <button class="solid" id="handoffOpen" type="button">Open bank app</button>
     </div>
   </div>
@@ -605,7 +615,7 @@
 <script>
 (function () {
   const INTERAC_EMAIL = "supriyaaprajitha143@gmail.com";
-  const INTERAC_NAME = "Trio's Kitchen";
+  const INTERAC_NAME = "Trio kitchen";
 
   const items = [
     { id: "plain", name: "Plain Dosa", price: 5, cat: "dosa", desc: "Crispy crepe with coconut chutney & sambar" },
@@ -627,18 +637,11 @@
   ];
 
   const banks = [
-    { id: "rbc", name: "RBC", sub: "Royal Bank", color: "#003da5", schemes: ["rbcmobile://", "rbc://"], android: "com.rbc.mobile.android", store: "https://apps.apple.com/ca/app/rbc-mobile/id401591398", web: "https://www.rbcroyalbank.com/online-banking/" },
-    { id: "td", name: "TD", sub: "Canada Trust", color: "#008A00", schemes: ["tdct://", "td://"], android: "com.td", store: "https://apps.apple.com/ca/app/td-canada/id283247179", web: "https://easyweb.td.com/" },
-    { id: "scotia", name: "Scotia", sub: "Scotiabank", color: "#EC111A", schemes: ["scotiabank://", "bns://"], android: "com.scotiabank.mobile", store: "https://apps.apple.com/ca/app/scotiabank/id323714478", web: "https://www.scotiabank.com/" },
-    { id: "bmo", name: "BMO", sub: "Bank of Montreal", color: "#0079C1", schemes: ["bmomobile://", "bmo://"], android: "com.bmo.mobile", store: "https://apps.apple.com/ca/app/bmo-mobile-banking/id439887766", web: "https://www.bmo.com/" },
-    { id: "cibc", name: "CIBC", sub: "Mobile Banking", color: "#C41F3E", schemes: ["cibcmobile://", "cibc://"], android: "com.cibc.android.mobi", store: "https://apps.apple.com/ca/app/cibc-mobile-banking/id310216552", web: "https://www.cibc.com/" },
-    { id: "nbc", name: "NBC", sub: "National Bank", color: "#ED1C24", schemes: ["bnc://", "nbc://"], android: "ca.bnc.android", store: "https://apps.apple.com/ca/app/national-bank/id404203598", web: "https://www.nbc.ca/" },
-    { id: "desj", name: "Desjardins", sub: "Mobile services", color: "#00874E", schemes: ["desjardins://"], android: "com.desjardins.mobile", store: "https://apps.apple.com/ca/app/desjardins-mobile-services/id404059585", web: "https://www.desjardins.com/" },
-    { id: "tang", name: "Tangerine", sub: "Go easy", color: "#F37021", schemes: ["tangerine://"], android: "com.tangerine.android", store: "https://apps.apple.com/ca/app/tangerine/id561641623", web: "https://www.tangerine.ca/" },
-    { id: "simplii", name: "Simplii", sub: "Financial", color: "#E4002B", schemes: ["simplii://"], android: "com.simplii.mobile", store: "https://apps.apple.com/ca/app/simplii-financial/id1035647777", web: "https://www.simplii.com/" },
-    { id: "eq", name: "EQ Bank", sub: "Interac send", color: "#5C2D91", schemes: ["eqbank://"], android: "com.eqbank.mobile", store: "https://apps.apple.com/ca/app/eq-bank/id1079618961", web: "https://www.eqbank.ca/" },
-    { id: "ws", name: "Wealthsimple", sub: "Cash", color: "#111111", schemes: ["wealthsimple://"], android: "com.wealthsimple", store: "https://apps.apple.com/ca/app/wealthsimple/id926645831", web: "https://www.wealthsimple.com/" },
-    { id: "koho", name: "KOHO", sub: "Spend account", color: "#4B2EFF", schemes: ["koho://"], android: "com.koho", store: "https://apps.apple.com/ca/app/koho/id1252387545", web: "https://www.koho.ca/" }
+    { id: "rbc", name: "RBC", sub: "Open app", color: "#003da5", schemes: ["rbcmobile://", "rbc://"], android: "com.rbc.mobile.android", store: "https://apps.apple.com/ca/app/rbc-mobile/id401591398" },
+    { id: "td", name: "TD", sub: "Open app", color: "#008A00", schemes: ["tdct://", "tdmobile://", "td://"], android: "com.td", store: "https://apps.apple.com/ca/app/td/id283247179" },
+    { id: "scotia", name: "Scotiabank", sub: "Open app", color: "#EC111A", schemes: ["scotiabank://", "bns://"], android: "com.scotiabank.mobile", store: "https://apps.apple.com/ca/app/scotiabank/id323714478" },
+    { id: "bmo", name: "BMO", sub: "Open app", color: "#0079C1", schemes: ["bmomobile://", "bmo://"], android: "com.bmo.mobile", store: "https://apps.apple.com/ca/app/bmo-mobile-banking/id439887766" },
+    { id: "cibc", name: "CIBC", sub: "Open app", color: "#C41F3E", schemes: ["cibcmobile://", "cibc://"], android: "com.cibc.android.mobi", store: "https://apps.apple.com/ca/app/cibc-mobile-banking/id310216552" }
   ];
 
   const cart = {};
@@ -737,7 +740,6 @@
     const label = t.count ? money(t.sum) : "$0";
     document.getElementById("dockAmt").textContent = label;
     document.getElementById("sheetAmt").textContent = t.count ? money(t.sum) : "$0.00";
-    document.getElementById("handoffAmt").textContent = t.count ? money(t.sum) : "your total";
     document.getElementById("payKicker").textContent = t.count
       ? t.count + (t.count === 1 ? " item" : " items")
       : "Interac e-Transfer";
@@ -747,7 +749,7 @@
     toastEl.textContent = msg;
     toastEl.classList.add("on");
     clearTimeout(toast.t);
-    toast.t = setTimeout(function () { toastEl.classList.remove("on"); }, 2200);
+    toast.t = setTimeout(function () { toastEl.classList.remove("on"); }, 3800);
   }
 
   function copyEmail() {
@@ -797,7 +799,7 @@
       return (
         '<button class="bank" type="button" data-bank="' + b.id + '">' +
           '<span class="bank-logo" style="background:' + b.color + '">' + b.name.slice(0, 4).toUpperCase() + '</span>' +
-          '<span><strong>' + b.name + '</strong><em>' + b.sub + ' · paste email</em></span>' +
+          '<span><strong>' + b.name + '</strong><em>Open ' + b.name + ' app</em></span>' +
         '</button>'
       );
     }).join("");
@@ -805,41 +807,44 @@
 
   function isAndroid() { return /android/i.test(navigator.userAgent); }
   function isIOS() { return /iPhone|iPad|iPod/i.test(navigator.userAgent); }
+  function isMobile() { return isAndroid() || isIOS(); }
 
   function showHandoff(bank) {
     pendingBank = bank;
-    document.getElementById("handoffBank").textContent = "Opening " + bank.name;
-    document.getElementById("handoffTitle").textContent = "Paste into " + bank.name;
+    document.getElementById("handoffBank").textContent = "Interac email copied";
+    document.getElementById("handoffTitle").textContent = "Open the " + bank.name + " app";
+    document.getElementById("handoffHint").innerHTML =
+      "Please open the <strong>" + bank.name + " app</strong> to send Interac. Long-press <strong>To</strong> and tap <strong>Paste</strong> — don’t type the email.";
+    document.getElementById("handoffOpen").textContent = "Open " + bank.name + " app";
     handoff.classList.add("show");
   }
 
   function hideHandoff() {
     handoff.classList.remove("show");
+    clearTimeout(launchTimer);
+  }
+
+  function playStore(bank) {
+    return "https://play.google.com/store/apps/details?id=" + bank.android;
   }
 
   function launchBank(bank) {
-    copyEmail();
-    const started = Date.now();
+    if (!isMobile()) {
+      toast("Open this page on your phone to launch the " + bank.name + " app");
+      return;
+    }
 
-    if (isAndroid() && bank.android) {
+    if (isAndroid()) {
       const scheme = (bank.schemes[0] || "app://").replace("://", "");
       window.location.href =
-        "intent://send#Intent;scheme=" + scheme +
+        "intent://#Intent;scheme=" + scheme +
         ";package=" + bank.android +
-        ";S.browser_fallback_url=" + encodeURIComponent(bank.web) +
+        ";S.browser_fallback_url=" + encodeURIComponent(playStore(bank)) +
         ";end";
       return;
     }
 
     window.location.href = bank.schemes[0];
-
-    clearTimeout(launchTimer);
-    launchTimer = setTimeout(function () {
-      if (document.hidden) return;
-      if (Date.now() - started < 2500) {
-        window.location.href = isIOS() ? bank.store : bank.web;
-      }
-    }, 1400);
   }
 
   menuEl.addEventListener("click", function (e) {
@@ -888,8 +893,15 @@
     if (!btn) return;
     const bank = banks.find(function (b) { return b.id === btn.getAttribute("data-bank"); });
     if (!bank) return;
-    copyEmail().then(function () {
+    copyEmail().then(function (ok) {
+      toast(ok
+        ? "Interac email copied. Please open the " + bank.name + " app to send Interac."
+        : "Copy the email, then open the " + bank.name + " app.");
       showHandoff(bank);
+      clearTimeout(launchTimer);
+      launchTimer = setTimeout(function () {
+        launchBank(bank);
+      }, 900);
     });
   });
 
